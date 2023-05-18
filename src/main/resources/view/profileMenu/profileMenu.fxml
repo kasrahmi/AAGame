@@ -6,11 +6,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane xmlns="http://javafx.com/javafx"
+<AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="view.MainMenu.ProfileMenu.ProfileMenu"
             stylesheets="@../../styles/menusStyle.css"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="600.0" prefWidth="800.0">
 <!--    <center>-->
 <!--        <VBox alignment="CENTER" spacing="10">-->
 <!--            <HBox alignment="CENTER" spacing="10">-->
@@ -24,4 +24,4 @@
 <!--        </VBox>-->
 <!--    </center>-->
 
-</Pane>
+</AnchorPane>
