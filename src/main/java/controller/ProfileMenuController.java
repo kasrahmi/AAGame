@@ -13,6 +13,8 @@ public class ProfileMenuController {
         if (Database.getUserByUserName(text) != null) return "username exist";
         User user = Database.getUserByUserName(CurrentGame.getLoggedInUser().getUsername());
         user.setUsername(text);
+        user = CurrentGame.getLoggedInUser();
+        user.setUsername(text);
         Database.saveUsers();
         return "successfully changed";
     }
@@ -34,6 +36,9 @@ public class ProfileMenuController {
             return output;
 
         currentUser.setPassword(newPassword);
+
+        currentUser = CurrentGame.getLoggedInUser();
+        currentUser.setUsername(newPassword);
         Database.saveUsers();
         return "Password changed successfully";
 
