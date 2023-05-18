@@ -3,7 +3,11 @@ module AAGame {
     requires javafx.fxml;
     requires javafx.graphics;
     requires com.google.gson;
+    requires java.desktop;
+    requires javafx.swing;
 
+    exports view;
+    opens view to javafx.fxml;
     exports model;
     opens model to com.google.gson;
     exports view.MainMenu;

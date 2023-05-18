@@ -7,6 +7,7 @@ public class User {
     private int score;
     private int level;
     private int time;
+    private String pathAvatar;
     public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
@@ -62,6 +63,14 @@ public class User {
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    public String getPathAvatar() {
+        return pathAvatar;
+    }
+
+    public void setPathAvatar(String pathAvatar) {
+        this.pathAvatar = pathAvatar;
     }
 
     @Override
