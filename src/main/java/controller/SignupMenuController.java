@@ -1,31 +1,30 @@
 package controller;
 
+import controller.utils.checkValidations;
 import model.Database;
 import model.User;
 import view.enums.SignupMenuMessages;
 
 public class SignupMenuController {
 
-    public SignupMenuMessages signup(String username, String password, String email) {
+    public String signup(String username, String password, String email) {
         Database.loadUsers();
+        String output;
 
-        if (username.equals("")) return SignupMenuMessages.EMPTY_USERNAME;
-        else if (password.equals("")) return SignupMenuMessages.EMPTY_PASSWORD;
-        else if (email.equals("")) return SignupMenuMessages.EMPTY_EMAIL;
+        if (checkValidations.emptyField(username) || checkValidations.emptyField(password)
+        || checkValidations.emptyField(email)) return "Empty Field!";
 
-        if (password.length() < 5) return SignupMenuMessages.SHORT_PASSWORD;
-        else if (!password.matches(".*[a-z].*")) return SignupMenuMessages.DOES_NOT_CONTAIN_LOWERCASE_LETTER;
-        else if (!password.matches(".*[A-Z].*")) return SignupMenuMessages.DOES_NOT_CONTAIN_UPPERCASE_LETTER;
-        else if (!password.matches(".*[0-9].*")) return SignupMenuMessages.PASSWORD_DOES_NOT_CONTAIN_NUMBER;
+        if (!(output = checkValidations.checkPassword(password)).equals("Successfully set"))
+            return output;
 
-        if (!email.matches(".+@.+\\..+")) return SignupMenuMessages.INVAILD_EMAIL;
+        if (!email.matches(".+@.+\\..+")) return "Invalid email type";
 
-        if (Database.getUserByUserName(username) != null) return SignupMenuMessages.USERNAME_EXISTS;
+        if (Database.getUserByUserName(username) != null) return "Username already exist";
 
         User user = new User(username, password, email);
         Database.getUsers().add(user);
         Database.saveUsers();
 
-        return SignupMenuMessages.SUCCESS;
+        return "User successfully created";
     }
 }

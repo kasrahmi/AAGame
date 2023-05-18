@@ -11,12 +11,14 @@ import java.net.URL;
 
 public class SignupMenu extends Application {
     public static Stage stage;
+    public static BorderPane borderPane;
 
     @Override
     public void start(Stage stage) throws Exception {
         SignupMenu.stage = stage;
         URL url = LoginMenu.class.getResource("/view/signupMenu.fxml");
         BorderPane borderPane = FXMLLoader.load(url);
+        SignupMenu.borderPane = borderPane;
         Scene scene = new Scene(borderPane);
         stage.setScene(scene);
         stage.show();

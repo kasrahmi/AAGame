@@ -31,6 +31,9 @@
             <HBox alignment="CENTER">
                 <Button text="login menu" onMouseClicked="#enterLoginMenu"/>
             </HBox>
+            <HBox alignment="CENTER">
+                <Text text="" fx:id="message"/>
+            </HBox>
         </VBox>
     </center>
 
