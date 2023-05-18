@@ -35,7 +35,13 @@ public class MainMenu extends Application {
         Text username = new Text(360, 50, MainMenuController.usernameCurrentUser());
         username.setFill(Paint.valueOf("black"));
         hBox.setAlignment(Pos.CENTER);
+        hBox.setSpacing(50);
         hBox.getChildren().add(username);
+
+        ImageView imageView;
+        if ((imageView = MainMenuController.controller.getAvatar()) != null)
+            hBox.getChildren().add(imageView);
+
         pane.getChildren().add(hBox);
 
         url = LoginMenu.class.getResource("/view/mainMenu/mainButtons.fxml");

@@ -1,6 +1,7 @@
 package controller;
 
 import controller.utils.checkValidations;
+import model.AvatarOrganizer;
 import model.Database;
 import model.User;
 import view.enums.SignupMenuMessages;
@@ -21,7 +22,7 @@ public class SignupMenuController {
 
         if (Database.getUserByUserName(username) != null) return "Username already exist";
 
-        User user = new User(username, password, email);
+        User user = new User(username, password, email, AvatarOrganizer.randomPathGenerator());
         Database.getUsers().add(user);
         Database.saveUsers();
 

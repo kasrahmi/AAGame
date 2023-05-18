@@ -1,6 +1,8 @@
 package controller;
 
 import controller.utils.updateDatabase;
+import javafx.scene.image.ImageView;
+import model.AvatarOrganizer;
 import model.CurrentGame;
 import model.Database;
 
@@ -17,5 +19,10 @@ public class MainMenuController {
 
     public boolean isGuestMode() {
         return CurrentGame.isGuestMode();
+    }
+
+    public ImageView getAvatar() {
+        if (CurrentGame.isGuestMode()) return null;
+        return AvatarOrganizer.getAvatar(CurrentGame.getLoggedInUser());
     }
 }

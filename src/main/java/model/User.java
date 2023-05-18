@@ -8,10 +8,11 @@ public class User {
     private int level;
     private int time;
     private String pathAvatar;
-    public User(String username, String password, String email) {
+    public User(String username, String password, String email, String pathAvatar) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.pathAvatar = pathAvatar;
         this.score = 0;
         this.level = 1;
         this.time = 0;
