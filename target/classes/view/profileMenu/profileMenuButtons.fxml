@@ -21,6 +21,9 @@
                     <Button text="delete account" onMouseClicked="#deleteAccount"/>
                     <Button text="select avatar" onMouseClicked="#selectAvatar"/>
                 </HBox>
+                <HBox alignment="CENTER" spacing="10">
+                    <Button text="back" onMouseClicked="#backToMain"/>
+                </HBox>
             </VBox>
         </center>
 

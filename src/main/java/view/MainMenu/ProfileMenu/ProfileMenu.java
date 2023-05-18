@@ -113,4 +113,8 @@ public class ProfileMenu extends Application {
     public void changePasswordSubmit(MouseEvent mouseEvent) {
         changePassword.setText(controller.changePassword(newPassword.getText()));
     }
+
+    public void backToMain(MouseEvent mouseEvent) throws Exception {
+        new MainMenu().start(ProfileMenu.stage);
+    }
 }
