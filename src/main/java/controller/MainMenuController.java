@@ -2,13 +2,14 @@ package controller;
 
 import controller.utils.updateDatabase;
 import model.CurrentGame;
+import model.Database;
 
 public class MainMenuController {
 
     public String getUsername() {
         if (CurrentGame.isGuestMode()) return "You have entered as guest";
         return "You have entered as " + CurrentGame.getLoggedInUser().getUsername() +
-                "\nLevel : " + CurrentGame.getLoggedInUser().getLevel();
+                "\nLevel : " + Database.getUserByUserName(CurrentGame.getLoggedInUser().getUsername()).getLevel();
     }
     public void logout() {
         updateDatabase.logout();
