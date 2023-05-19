@@ -154,7 +154,7 @@ public class ProfileMenu extends Application {
             imageView.setFitHeight(80);
             if (hBox.getChildren().size() > 1) hBox.getChildren().remove(1);
             hBox.getChildren().add(imageView);
-            controller.changeAvatarCustom("file:" + file.getPath().toString());
+            controller.changeAvatarCustom(file.toURI().toString());
         });
     }
 
