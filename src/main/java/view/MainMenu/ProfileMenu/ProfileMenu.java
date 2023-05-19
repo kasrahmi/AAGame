@@ -15,12 +15,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import view.LoginMenu.LoginMenu;
 import view.MainMenu.MainMenu;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -34,6 +35,8 @@ public class ProfileMenu extends Application {
     public Text changeUsername;
     public Text changePassword;
     public CheckBox firstAvatar;
+    public File file;
+    public ImageView imageView;
 
     public ProfileMenu() {
         this.controller = new ProfileMenuController();
@@ -123,12 +126,36 @@ public class ProfileMenu extends Application {
         createAvatarHBox(hBox3, checkBox3, imageView3);
         hBox.getChildren().add(hBox3);
 
+        HBox hBox4 = new HBox();
+        hBox4.setAlignment(Pos.CENTER);
+        hBox4.setSpacing(10);
+        FileChooser fileChooser = new FileChooser();
+        Button browse = new Button("Browse");
+        setActionBrowse(browse, fileChooser, hBox4);
+
+        hBox4.getChildren().add(browse);
+        hBox.getChildren().add(hBox4);
+
         makeListeners(checkBox1, checkBox2, checkBox3);
         makeListeners(checkBox2, checkBox1, checkBox3);
         makeListeners(checkBox3, checkBox1, checkBox2);
 
+//        borderPane.setTop(browse);
         borderPane.setCenter(hBox);
         pane.getChildren().add(borderPane);
+    }
+
+    private void setActionBrowse(Button browse, FileChooser fileChooser, HBox hBox) {
+        browse.setOnAction((event) ->
+        {
+            file = fileChooser.showOpenDialog(stage);
+            imageView = new ImageView(file.toURI().toString());
+            imageView.setFitWidth(80);
+            imageView.setFitHeight(80);
+            if (hBox.getChildren().size() > 1) hBox.getChildren().remove(1);
+            hBox.getChildren().add(imageView);
+            controller.changeAvatarCustom("file:" + file.getPath().toString());
+        });
     }
 
     private void makeListeners(CheckBox checkBox1, CheckBox checkBox2, CheckBox checkBox3) {
@@ -139,7 +166,7 @@ public class ProfileMenu extends Application {
                     checkBox2.setSelected(false);
                     checkBox3.setSelected(false);
                 }
-                controller.changeAvatar(checkBox1.getText());
+                controller.changeAvatarById(checkBox1.getText());
             }
         });
     }

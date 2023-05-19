@@ -7,7 +7,6 @@ import model.AvatarOrganizer;
 import model.CurrentGame;
 import model.Database;
 import model.User;
-import view.enums.SignupMenuMessages;
 
 public class ProfileMenuController {
     public String changeUsername(String text) {
@@ -50,9 +49,17 @@ public class ProfileMenuController {
         return AvatarOrganizer.getAvatarByPath(AvatarOrganizer.pathGenerator(id));
     }
 
-    public void changeAvatar(String text) {
+    public void changeAvatarById(String text) {
         User user = Database.getUserByUserName(CurrentGame.getLoggedInUser().getUsername());
         user.setPathAvatar(AvatarOrganizer.pathGenerator(text));
         CurrentGame.getLoggedInUser().setPathAvatar(AvatarOrganizer.pathGenerator(text));
+        Database.saveUsers();
+    }
+
+    public void changeAvatarCustom(String path) {
+        User user = Database.getUserByUserName(CurrentGame.getLoggedInUser().getUsername());
+        user.setPathAvatar(path);
+        CurrentGame.getLoggedInUser().setPathAvatar(path);
+        Database.saveUsers();
     }
 }
