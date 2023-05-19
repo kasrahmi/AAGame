@@ -3,33 +3,54 @@ package view.MainMenu.SettingMenu;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.input.MouseEvent;
 import view.MainMenu.MainMenu;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class SettingMenuController {
 
     public static controller.SettingMenuController controller = new controller.SettingMenuController();
-    public static CheckBox easy;
-    public static CheckBox medium;
-    public static CheckBox hard;
+    public CheckBox easy;
+    public CheckBox medium;
+    public CheckBox hard;
+//    public ArrayList<CheckBox> checkBoxes = new ArrayList<>(Arrays.asList(easy, medium, hard));
+//    public SettingMenuController() {
+//        checkBoxes = new ArrayList<>();
+//        checkBoxes.add(easy);
+//        checkBoxes.add(medium);
+//        checkBoxes.add(hard);
+//    }
+//    public void check(ActionEvent actionEvent) {
+//        for (CheckBox checkBox : checkBoxes) {
+//            if (!checkBox.getId().equals(checkBox.getId())) {
+//                System.out.println(checkBox.getId());
+//                checkBox.setSelected(false);
+//                System.out.println(checkBox.isSelected());
+//            } else controller.setLevel(Integer.parseInt(checkBox.getText()));
+//        }
+//    }
 
-    public static void checkEasy(ActionEvent actionEvent) {
+    public void checkEasy(ActionEvent actionEvent) {
         if (easy.isSelected()) {
             medium.setSelected(false);
             hard.setSelected(false);
             controller.setLevel(1);
         }
     }
-    public static void checkMedium(ActionEvent actionEvent) {
+    public void checkMedium(ActionEvent actionEvent) {
         if (medium.isSelected()) {
             easy.setSelected(false);
             hard.setSelected(false);
             controller.setLevel(2);
         }
     }
-    public static void checkHard(ActionEvent actionEvent) {
+    public void checkHard(ActionEvent actionEvent) {
         if (hard.isSelected()) {
             easy.setSelected(false);
             medium.setSelected(false);
@@ -48,4 +69,10 @@ public class SettingMenuController {
             new MainMenu().start(SettingMenu.stage);
         }
     }
+//    @FXML
+//    public void initialize() {
+//        checkBoxes.add(easy);
+//        checkBoxes.add(medium);
+//        checkBoxes.add(hard);
+//    }
 }

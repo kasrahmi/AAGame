@@ -12,6 +12,7 @@ public class ProfileMenuController {
     public String changeUsername(String text) {
         Database.loadUsers();
         if (Database.getUserByUserName(text) != null) return "username exist";
+        if (checkValidations.emptyField(text)) return "Empty username field";
         User user = Database.getUserByUserName(CurrentGame.getLoggedInUser().getUsername());
         user.setUsername(text);
         user = CurrentGame.getLoggedInUser();
@@ -32,6 +33,7 @@ public class ProfileMenuController {
         String output;
         User currentUser = Database.getUserByUserName(CurrentGame.getLoggedInUser().getUsername());
         if (currentUser.getPassword().equals(newPassword)) return "Same password as before";
+        if (checkValidations.emptyField(newPassword)) return "Empty password field";
 
         if (!(output = checkValidations.checkPassword(newPassword)).equals("Successfully set"))
             return output;

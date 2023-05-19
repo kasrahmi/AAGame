@@ -12,7 +12,7 @@
             prefHeight="600.0" prefWidth="800.0">
     <bottom>
         <HBox alignment="CENTER_LEFT">
-            <Button text="back" onMouseClicked="#back"/>
+            <Button prefWidth="120" text="back" onMouseClicked="#back"/>
         </HBox>
     </bottom>
 </BorderPane>

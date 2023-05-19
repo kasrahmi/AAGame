@@ -6,17 +6,13 @@ import model.User;
 import java.util.ArrayList;
 
 public class ScoreBoardController {
-    public String getScoreBoard() {
+    public String getScoreBoard(int i) {
         ArrayList<User> users = orderScoreBoard();
         String output = "";
-        output += "The scoreBoard :\n\n\n";
-        int counter = 0;
-        for (User user : users) {
-
-            output += ++counter + ". " + user.toString() + "\n\n\n";
-
-            if (counter == 10) break;
-        }
+//        if (i == 0)
+//            output += "The scoreBoard :\n\n\n";
+        if (i < users.size())
+            output += "\t" + (i + 1) + "." + users.get(i).toString() + "\n\n";
         return output;
     }
 

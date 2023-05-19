@@ -17,8 +17,8 @@
                 <TextField maxWidth="300" promptText="new username" fx:id="newUsername"/>
             </HBox>
             <HBox alignment="CENTER" spacing="10">
-                <Button text="submit" onMouseClicked="#changeUsernameSubmit"/>
-                <Button text="back" onMouseClicked="#backToProfileMenu"/>
+                <Button prefWidth="120" text="submit" onMouseClicked="#changeUsernameSubmit"/>
+                <Button prefWidth="120" text="back" onMouseClicked="#backToProfileMenu"/>
             </HBox>
             <HBox alignment="CENTER">
                 <Text text="" fx:id="changeUsername"/>

@@ -7,8 +7,8 @@ public class ScoreBoardMenuController {
     public ScoreBoardMenuController() {
         controller = new controller.ScoreBoardController();
     }
-    public static String getScoreBoard() {
-        return controller.getScoreBoard();
+    public static String getScoreBoard(int i) {
+        return controller.getScoreBoard(i);
     }
     public void back() throws Exception {
         new MainMenu().start(ScoreBoardMenu.stage);

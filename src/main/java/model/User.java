@@ -76,6 +76,6 @@ public class User {
 
     @Override
     public String toString() {
-        return getUsername() + " score : " + getScore() + " time : " + getTime();
+        return getUsername() + "\tscore : " + getScore() + "\ttime : " + getTime();
     }
 }

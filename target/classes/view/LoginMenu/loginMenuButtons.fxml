@@ -6,6 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.text.Text?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="view.LoginMenu.LoginMenuController"
@@ -14,7 +15,7 @@
 
     <center>
         <VBox alignment="CENTER" spacing="10">
-            <Label text="Welcome to aa"/>
+            <Text text="Welcome to AA"/>
             <HBox alignment="CENTER" spacing="10">
                 <TextField maxWidth="300" promptText="username" fx:id="username"/>
             </HBox>
@@ -22,12 +23,12 @@
                 <PasswordField maxWidth="300" promptText="password" fx:id="password"/>
             </HBox>
             <HBox alignment="CENTER" spacing="10">
-                <Button text="submit" onMouseClicked="#submit"/>
-                <Button text="reset" onMouseClicked="#reset"/>
+                <Button prefWidth="120" text="submit" onMouseClicked="#submit"/>
+                <Button prefWidth="120" text="reset" onMouseClicked="#reset"/>
             </HBox>
             <HBox alignment="CENTER" spacing="10">
-                <Button text="signup menu" onMouseClicked="#enterSignupMenu"/>
-                <Button text="enter as guest" onMouseClicked="#enterGuestMode"/>
+                <Button prefWidth="120" text="signup menu" onMouseClicked="#enterSignupMenu"/>
+                <Button prefWidth="120" text="enter as guest" onMouseClicked="#enterGuestMode"/>
             </HBox>
         </VBox>
     </center>

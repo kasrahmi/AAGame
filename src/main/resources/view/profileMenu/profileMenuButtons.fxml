@@ -14,15 +14,15 @@
         <center>
             <VBox alignment="CENTER" spacing="10">
                 <HBox alignment="CENTER" spacing="10">
-                    <Button text="change username" onMouseClicked="#changeUsername"/>
-                    <Button text="change password" onMouseClicked="#changePassword"/>
+                    <Button prefWidth="120" text="change username" onMouseClicked="#changeUsername"/>
+                    <Button prefWidth="120" text="change password" onMouseClicked="#changePassword"/>
                 </HBox>
                 <HBox alignment="CENTER" spacing="10">
-                    <Button text="delete account" onMouseClicked="#deleteAccount"/>
-                    <Button text="select avatar" onMouseClicked="#avatarMenu"/>
+                    <Button prefWidth="120" text="delete account" onMouseClicked="#deleteAccount"/>
+                    <Button prefWidth="120" text="select avatar" onMouseClicked="#avatarMenu"/>
                 </HBox>
                 <HBox alignment="CENTER" spacing="10">
-                    <Button text="back" onMouseClicked="#backToMain"/>
+                    <Button prefWidth="120" text="back" onMouseClicked="#backToMain"/>
                 </HBox>
             </VBox>
         </center>

@@ -9,27 +9,27 @@
 <?import javafx.scene.text.Text?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="view.MainMenu.SettingMenu.SettingMenu"
+            fx:controller="view.MainMenu.SettingMenu.SettingMenuController"
             prefHeight="600.0" prefWidth="800.0">
-<!--    <center>-->
-<!--        <VBox alignment="CENTER" spacing="10">-->
-<!--            <HBox alignment="CENTER" spacing="10">-->
-<!--                <Text text="Hardness level :"/>-->
-<!--                <HBox alignment="CENTER" spacing="5">-->
-<!--                    <Text text="easy"/>-->
-<!--                    <CheckBox fx:id="easy" onAction="#checkEasy"/>-->
-<!--                </HBox>-->
-<!--                <HBox alignment="CENTER" spacing="5">-->
-<!--                    <Text text="medium"/>-->
-<!--                    <CheckBox fx:id="medium" onAction="#checkMedium"/>-->
-<!--                </HBox>-->
-<!--                <HBox alignment="CENTER" spacing="5">-->
-<!--                    <Text text="hard"/>-->
-<!--                    <CheckBox fx:id="hard" onAction="#checkHard"/>-->
-<!--                </HBox>-->
-<!--            </HBox>-->
-<!--        </VBox>-->
-<!--    </center>-->
+    <center>
+        <VBox alignment="CENTER" spacing="10">
+            <HBox alignment="CENTER" spacing="10">
+                <Text text="Hardness level :"/>
+                <HBox alignment="CENTER" spacing="5">
+                    <Text text="easy"/>
+                    <CheckBox text="1" fx:id="easy" onAction="#checkEasy"/>
+                </HBox>
+                <HBox alignment="CENTER" spacing="5">
+                    <Text text="medium"/>
+                    <CheckBox text="2" fx:id="medium" onAction="#checkMedium"/>
+                </HBox>
+                <HBox alignment="CENTER" spacing="5">
+                    <Text text="hard"/>
+                    <CheckBox text="3" fx:id="hard" onAction="#checkHard"/>
+                </HBox>
+            </HBox>
+        </VBox>
+    </center>
     <bottom>
         <HBox alignment="CENTER_LEFT">
             <Button text="back" onMouseClicked="#back"/>

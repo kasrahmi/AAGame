@@ -25,11 +25,11 @@
                 <TextField maxWidth="300" promptText="email" fx:id="email"/>
             </HBox>
             <HBox alignment="CENTER" spacing="10">
-                <Button text="submit" onMouseClicked="#submit"/>
-                <Button text="reset" onMouseClicked="#reset"/>
+                <Button prefWidth="120" text="submit" onMouseClicked="#submit"/>
+                <Button prefWidth="120" text="reset" onMouseClicked="#reset"/>
             </HBox>
             <HBox alignment="CENTER">
-                <Button text="login menu" onMouseClicked="#enterLoginMenu"/>
+                <Button prefWidth="120" text="login menu" onMouseClicked="#enterLoginMenu"/>
             </HBox>
             <HBox alignment="CENTER">
                 <Text text="" fx:id="message"/>

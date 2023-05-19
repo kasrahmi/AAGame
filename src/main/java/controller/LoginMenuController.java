@@ -1,5 +1,6 @@
 package controller;
 
+import controller.utils.checkValidations;
 import model.CurrentGame;
 import model.Database;
 import model.User;
@@ -12,9 +13,9 @@ public class LoginMenuController {
 
         User user = Database.getUserByUserName(name);
 
-        if (name.equals("")) return LoginMenuMessages.EMPTY_USERNAME;
+        if (checkValidations.emptyField(name)) return LoginMenuMessages.EMPTY_USERNAME;
 
-        if (password.equals("")) return LoginMenuMessages.EMPTY_PASSWORD;
+        if (checkValidations.emptyField(password)) return LoginMenuMessages.EMPTY_PASSWORD;
 
         if (user == null) return LoginMenuMessages.USER_DOES_NOT_EXIST;
 

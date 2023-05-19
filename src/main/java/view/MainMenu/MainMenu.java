@@ -38,11 +38,12 @@ public class MainMenu extends Application {
         username.setFill(Paint.valueOf("black"));
         hBox.setAlignment(Pos.CENTER);
         hBox.setSpacing(50);
-        hBox.getChildren().add(username);
+
 
         ImageView imageView;
         if ((imageView = MainMenuController.controller.getAvatar()) != null)
             hBox.getChildren().add(imageView);
+        hBox.getChildren().add(username);
 
         pane.getChildren().add(hBox);
 
