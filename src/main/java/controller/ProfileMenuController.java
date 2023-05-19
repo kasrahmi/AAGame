@@ -2,6 +2,8 @@ package controller;
 
 import controller.utils.checkValidations;
 import controller.utils.updateDatabase;
+import javafx.scene.image.ImageView;
+import model.AvatarOrganizer;
 import model.CurrentGame;
 import model.Database;
 import model.User;
@@ -42,5 +44,15 @@ public class ProfileMenuController {
         Database.saveUsers();
         return "Password changed successfully";
 
+    }
+
+    public ImageView getAvatarById(String id) {
+        return AvatarOrganizer.getAvatarByPath(AvatarOrganizer.pathGenerator(id));
+    }
+
+    public void changeAvatar(String text) {
+        User user = Database.getUserByUserName(CurrentGame.getLoggedInUser().getUsername());
+        user.setPathAvatar(AvatarOrganizer.pathGenerator(text));
+        CurrentGame.getLoggedInUser().setPathAvatar(AvatarOrganizer.pathGenerator(text));
     }
 }

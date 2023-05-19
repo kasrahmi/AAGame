@@ -19,7 +19,7 @@
                 </HBox>
                 <HBox alignment="CENTER" spacing="10">
                     <Button text="delete account" onMouseClicked="#deleteAccount"/>
-                    <Button text="select avatar" onMouseClicked="#selectAvatar"/>
+                    <Button text="select avatar" onMouseClicked="#avatarMenu"/>
                 </HBox>
                 <HBox alignment="CENTER" spacing="10">
                     <Button text="back" onMouseClicked="#backToMain"/>
