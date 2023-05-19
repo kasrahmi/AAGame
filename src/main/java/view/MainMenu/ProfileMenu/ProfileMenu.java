@@ -131,7 +131,7 @@ public class ProfileMenu extends Application {
         hBox4.setSpacing(10);
         FileChooser fileChooser = new FileChooser();
         Button browse = new Button("Browse");
-        setActionBrowse(browse, fileChooser, hBox4);
+        setActionBrowse(browse, fileChooser, hBox4, checkBox1, checkBox2, checkBox3);
 
         hBox4.getChildren().add(browse);
         hBox.getChildren().add(hBox4);
@@ -145,7 +145,8 @@ public class ProfileMenu extends Application {
         pane.getChildren().add(borderPane);
     }
 
-    private void setActionBrowse(Button browse, FileChooser fileChooser, HBox hBox) {
+    private void setActionBrowse(Button browse, FileChooser fileChooser, HBox hBox, CheckBox checkBox1,
+                                 CheckBox checkBox2, CheckBox checkBox3) {
         browse.setOnAction((event) ->
         {
             file = fileChooser.showOpenDialog(stage);
@@ -154,6 +155,9 @@ public class ProfileMenu extends Application {
             imageView.setFitHeight(80);
             if (hBox.getChildren().size() > 1) hBox.getChildren().remove(1);
             hBox.getChildren().add(imageView);
+            checkBox1.setSelected(false);
+            checkBox2.setSelected(false);
+            checkBox3.setSelected(false);
             controller.changeAvatarCustom(file.toURI().toString());
         });
     }

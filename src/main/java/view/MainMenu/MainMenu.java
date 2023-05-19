@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import view.LoginMenu.LoginMenu;
@@ -33,6 +34,7 @@ public class MainMenu extends Application {
 
         HBox hBox = new HBox();
         Text username = new Text(360, 50, MainMenuController.usernameCurrentUser());
+        username.setFont(Font.font(16));
         username.setFill(Paint.valueOf("black"));
         hBox.setAlignment(Pos.CENTER);
         hBox.setSpacing(50);

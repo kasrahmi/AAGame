@@ -5,6 +5,7 @@ import javafx.scene.input.MouseEvent;
 import view.LoginMenu.LoginMenu;
 import view.MainMenu.ProfileMenu.ProfileMenu;
 import view.MainMenu.ScoreBoardMenu.ScoreBoardMenu;
+import view.MainMenu.SettingMenu.SettingMenu;
 
 public class MainMenuController {
 
@@ -39,8 +40,8 @@ public class MainMenuController {
         new ScoreBoardMenu().start(MainMenu.stage);
     }
 
-    public void setting(MouseEvent mouseEvent) {
-
+    public void setting(MouseEvent mouseEvent) throws Exception {
+        new SettingMenu().start(MainMenu.stage);
     }
 
     public static String usernameCurrentUser() {

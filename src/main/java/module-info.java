@@ -9,6 +9,7 @@ module AAGame {
     exports model;
     opens model to com.google.gson;
     exports view.MainMenu;
+    opens view.MainMenu to javafx.fxml;
     exports view.MainMenu.ProfileMenu;
     opens view.MainMenu.ProfileMenu to javafx.fxml;
     exports view.MainMenu.ScoreBoardMenu;
