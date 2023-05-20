@@ -9,11 +9,12 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             stylesheets="@../../styles/menusStyle.css"
-            fx:controller="view.MainMenu.ScoreBoardMenu.ScoreBoardMenuController"
+            fx:controller="view.MainMenu.SettingMenu.ChangeDifficulty"
             prefHeight="600.0" prefWidth="800.0">
-    <bottom>
-        <HBox alignment="CENTER_LEFT">
-            <Button prefWidth="120" text="back" onMouseClicked="#back"/>
-        </HBox>
-    </bottom>
+        <bottom>
+            <HBox alignment="CENTER_LEFT">
+                <Button text="back" onMouseClicked="#back"/>
+            </HBox>
+        </bottom>
+
 </BorderPane>

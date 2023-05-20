@@ -10,30 +10,51 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="view.MainMenu.SettingMenu.SettingMenuController"
+            stylesheets="@../../styles/menusStyle.css"
             prefHeight="600.0" prefWidth="800.0">
     <center>
         <VBox alignment="CENTER" spacing="10">
             <HBox alignment="CENTER" spacing="10">
-                <Text text="Hardness level :"/>
-                <HBox alignment="CENTER" spacing="5">
-                    <Text text="easy"/>
-                    <CheckBox text="1" fx:id="easy" onAction="#checkEasy"/>
-                </HBox>
-                <HBox alignment="CENTER" spacing="5">
-                    <Text text="medium"/>
-                    <CheckBox text="2" fx:id="medium" onAction="#checkMedium"/>
-                </HBox>
-                <HBox alignment="CENTER" spacing="5">
-                    <Text text="hard"/>
-                    <CheckBox text="3" fx:id="hard" onAction="#checkHard"/>
-                </HBox>
+                <Button prefWidth="160" text="Change Difficulty" onMouseClicked="#changeDifficulty"/>
+                <Button prefWidth="160" text="Change Number Of Balls" onMouseClicked="#changeNumberOfBalls"/>
+            </HBox>
+            <HBox alignment="CENTER" spacing="10">
+                <Button prefWidth="160" text="Choose Map" onMouseClicked="#chooseMap"/>
+                <Button prefWidth="160" text="Mute Song" onMouseClicked="#muteSong"/>
+            </HBox>
+            <HBox alignment="CENTER" spacing="10">
+                <Button prefWidth="160" text="Black And White" onMouseClicked="#blackAndWhite"/>
+                <Button prefWidth="160" text="Change Language" onMouseClicked="#changeLanguage"/>
+            </HBox>
+            <HBox alignment="CENTER" spacing="10">
+                <Button prefWidth="160" text="Change Playing Button" onMouseClicked="#blackAndWhite"/>
+                <Button prefWidth="160" text="Back" onMouseClicked="#back"/>
             </HBox>
         </VBox>
     </center>
-    <bottom>
-        <HBox alignment="CENTER_LEFT">
-            <Button text="back" onMouseClicked="#back"/>
-        </HBox>
-    </bottom>
+<!--    <center>-->
+<!--        <VBox alignment="CENTER" spacing="10">-->
+<!--            <HBox alignment="CENTER" spacing="10">-->
+<!--                <Text text="Hardness level :"/>-->
+<!--                <HBox alignment="CENTER" spacing="5">-->
+<!--                    <Text text="easy"/>-->
+<!--                    <CheckBox text="1" fx:id="easy" onAction="#checkEasy"/>-->
+<!--                </HBox>-->
+<!--                <HBox alignment="CENTER" spacing="5">-->
+<!--                    <Text text="medium"/>-->
+<!--                    <CheckBox text="2" fx:id="medium" onAction="#checkMedium"/>-->
+<!--                </HBox>-->
+<!--                <HBox alignment="CENTER" spacing="5">-->
+<!--                    <Text text="hard"/>-->
+<!--                    <CheckBox text="3" fx:id="hard" onAction="#checkHard"/>-->
+<!--                </HBox>-->
+<!--            </HBox>-->
+<!--        </VBox>-->
+<!--    </center>-->
+<!--    <bottom>-->
+<!--        <HBox alignment="CENTER_LEFT">-->
+<!--            <Button text="back" onMouseClicked="#back"/>-->
+<!--        </HBox>-->
+<!--    </bottom>-->
 
 </BorderPane>

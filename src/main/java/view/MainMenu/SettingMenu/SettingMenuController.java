@@ -59,20 +59,31 @@ public class SettingMenuController {
     }
 
     public void back(MouseEvent mouseEvent) throws Exception {
-        if (!easy.isSelected() && !medium.isSelected() && !hard.isSelected()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Back without choosing level");
-            alert.setContentText("You can not go back to main menu without choosing level");
-            alert.showAndWait();
-        } else {
-            new MainMenu().start(SettingMenu.stage);
-        }
+        new MainMenu().start(SettingMenu.stage);
     }
-//    @FXML
-//    public void initialize() {
-//        checkBoxes.add(easy);
-//        checkBoxes.add(medium);
-//        checkBoxes.add(hard);
-//    }
+
+    public void blackAndWhite(MouseEvent mouseEvent) {
+
+    }
+
+    public void changeLanguage(MouseEvent mouseEvent) {
+
+    }
+
+    public void muteSong(MouseEvent mouseEvent) {
+
+    }
+
+    public void chooseMap(MouseEvent mouseEvent) {
+
+    }
+
+    public void changeNumberOfBalls(MouseEvent mouseEvent) throws Exception {
+        new ChangeNumberOfBalls().start(SettingMenu.stage);
+    }
+
+    public void changeDifficulty(MouseEvent mouseEvent) throws Exception {
+        new ChangeDifficulty().start(SettingMenu.stage);
+
+    }
 }

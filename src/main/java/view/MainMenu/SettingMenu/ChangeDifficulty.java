@@ -1,0 +1,124 @@
+package view.MainMenu.SettingMenu;
+
+import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import view.LoginMenu.LoginMenu;
+import view.MainMenu.MainMenu;
+import view.MainMenu.ProfileMenu.ProfileMenu;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+public class ChangeDifficulty extends Application {
+
+    public static Stage stage;
+    public CheckBox easy = new CheckBox("easy");
+    public CheckBox medium = new CheckBox("medium");
+    public CheckBox hard = new CheckBox("hard");
+    public ArrayList<CheckBox> checkBoxes = new ArrayList<>(List.of(easy, medium, hard));
+    public controller.SettingMenuController controller = new controller.SettingMenuController();
+    @FXML
+    private ListView listView;
+    private Set<Integer> intSet;
+    ObservableList observableList = FXCollections.observableArrayList();
+    @Override
+    public void start(Stage stage) throws Exception {
+        SettingMenu.stage = stage;
+        URL url = LoginMenu.class.getResource("/view/settingMenu/settingMenu.fxml");
+        Pane pane = FXMLLoader.load(url);
+
+        ImageView background = new ImageView(new Image(ProfileMenu.class.getResource("/images/background.png").toString(), 800 ,600, false, false));
+        ImageView background2 = new ImageView(new Image(ProfileMenu.class.getResource("/images/background.png").toString(), 800 ,600, false, false));
+
+        pane.getChildren().addAll(background, background2);
+
+        url = LoginMenu.class.getResource("/view/settingMenu/difficulty.fxml");
+        BorderPane borderPane = FXMLLoader.load(url);
+
+        easy.setId("1");
+        medium.setId("2");
+        hard.setId("3");
+
+        makeBorderPaneSetting(borderPane);
+        pane.getChildren().add(borderPane);
+
+        Scene scene = new Scene(pane);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void makeBorderPaneSetting(BorderPane borderPane) {
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(10);
+
+        HBox hBox = new HBox();
+        makeDifficultyHBox(hBox);
+
+        vBox.getChildren().add(hBox);
+        borderPane.setCenter(vBox);
+    }
+
+
+    private void makeDifficultyHBox(HBox hBox) {
+        hBox.getChildren().add(new Text("Hardness level :"));
+        hBox.setAlignment(Pos.CENTER);
+        hBox.setSpacing(10);
+
+        for (CheckBox checkBox : checkBoxes) {
+            HBox box = new HBox();
+            box.setSpacing(10); box.setAlignment(Pos.CENTER);
+            box.getChildren().addAll(checkBox);
+            hBox.getChildren().add(box);
+        }
+        for (CheckBox checkBox : checkBoxes) {
+            makeOnActionCheckBoxes(checkBox);
+        }
+        for (CheckBox checkBox : checkBoxes) {
+            if (checkBox.getId().equals(String.valueOf(controller.getLevel()))) {
+                checkBox.setSelected(true);
+                break;
+            }
+        }
+    }
+
+    private void makeOnActionCheckBoxes(CheckBox checkBox) {
+        checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue.equals(true)) {
+                    for (CheckBox box : checkBoxes) {
+                        if (!checkBox.getText().equals(box.getText())) box.setSelected(false);
+                    }
+                controller.setLevel(Integer.parseInt(checkBox.getId()));
+                }
+            }
+        });
+    }
+
+    public void back(MouseEvent mouseEvent) throws Exception {
+        new SettingMenu().start(SettingMenu.stage);
+    }
+
+}
+

@@ -8,6 +8,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
+            stylesheets="@../../styles/menusStyle.css"
             fx:controller="view.MainMenu.ScoreBoardMenu.ScoreBoardMenuController"
             prefHeight="600.0" prefWidth="800.0">
     <bottom>
