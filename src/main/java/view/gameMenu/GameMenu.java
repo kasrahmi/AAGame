@@ -41,7 +41,7 @@ public class GameMenu extends Application {
 
         RotateTransition transition = new RotateTransition();
         transition.setNode(mainCircle);
-        transition.setDuration(Duration.millis(1000));
+        transition.setDuration(Duration.millis(1500 * CurrentGame.getLevel()));
         transition.setFromAngle(0);
         transition.setToAngle(360);
         transition.setCycleCount(-1);

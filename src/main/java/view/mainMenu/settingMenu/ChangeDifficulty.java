@@ -52,9 +52,9 @@ public class ChangeDifficulty extends Application {
         url = LoginMenu.class.getResource("/view/settingMenu/difficulty.fxml");
         BorderPane borderPane = FXMLLoader.load(url);
 
-        easy.setId("1");
+        easy.setId("3");
         medium.setId("2");
-        hard.setId("3");
+        hard.setId("1");
 
         makeBorderPaneSetting(borderPane);
         pane.getChildren().add(borderPane);
