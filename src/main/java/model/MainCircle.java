@@ -9,6 +9,6 @@ public class MainCircle extends Circle {
         super(300, 250, 100);
 
         this.setFill(new ImagePattern(
-                new Image(MainCircle.class.getResource("/images/circle.png").toExternalForm())));
+                new Image("file:/Users/kasrahmi/Downloads/IMG_6538.png")));
     }
 }

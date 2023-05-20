@@ -13,8 +13,15 @@ public class GameMenuController {
     }
 
     public void shotBall(Ball ball) {
-        ShootingBall shootingBall = new ShootingBall(ball);
+        Ball newBall = new Ball();
+        GameMenu.borderPane.getChildren().add(newBall);
+        ShootingBall shootingBall = new ShootingBall(newBall);
         shootingBall.play();
+        CurrentGame.setNumberOfBalls(CurrentGame.getNumberOfBalls() - 1);
+//        if (CurrentGame.getNumberOfBalls() > 0) {
+//            Ball newBall = new Ball();
+//            GameMenu.borderPane.getChildren().add(newBall);
+//        }
 //        if (CurrentGame.getNumberOfBalls() > 0) {
 //            Ball newBall = new Ball();
 //            newBall.setOnKeyPressed(new EventHandler<KeyEvent>() {

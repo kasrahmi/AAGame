@@ -11,7 +11,7 @@ import javafx.scene.shape.Circle;
 public class Ball extends Circle {
     public Ball() {
         super(300, 600, 10);
-        this.setFill(Color.BLACK);
+//        this.setFill(Color.BLACK);
 //        this.setOnKeyPressed(new EventHandler<KeyEvent>() {
 //            @Override
 //            public void handle(KeyEvent keyEvent) {

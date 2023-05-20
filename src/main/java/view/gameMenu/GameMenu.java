@@ -1,6 +1,8 @@
 package view.gameMenu;
 
 import controller.SettingMenuController;
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -10,8 +12,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Ball;
-import model.InvisibleCircle;
+import model.CurrentGame;
 import model.MainCircle;
 import view.loginMenu.LoginMenu;
 import view.mainMenu.MainMenu;
@@ -34,13 +37,20 @@ public class GameMenu extends Application {
 
         GameMenu.borderPane = borderPane;
 
-        InvisibleCircle invisibleCircle = new InvisibleCircle();
         MainCircle mainCircle = new MainCircle();
-        Ball ball = new Ball();
 
-        createBallHandler(ball);
+        RotateTransition transition = new RotateTransition();
+        transition.setNode(mainCircle);
+        transition.setDuration(Duration.millis(1000));
+        transition.setFromAngle(0);
+        transition.setToAngle(360);
+        transition.setCycleCount(-1);
+        transition.setInterpolator(Interpolator.LINEAR);
+        transition.play();
 
-        borderPane.getChildren().addAll(invisibleCircle, mainCircle, ball);
+        Ball ball = createBallHandler();
+
+        borderPane.getChildren().addAll(mainCircle, ball);
         pane.getChildren().add(borderPane);
         Scene scene = new Scene(pane);
 
@@ -59,7 +69,9 @@ public class GameMenu extends Application {
         new MainMenu().start(GameMenu.stage);
     }
 
-    public void createBallHandler(Ball ball) {
+    public Ball createBallHandler() {
+        Ball ball = new Ball();
+        ball.requestFocus();
         ball.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -67,9 +79,16 @@ public class GameMenu extends Application {
 
                 if (keyName.equals("Tab"))
                     controller.freeze();
-                else if (keyName.equals("Space"))
-                    controller.shotBall(ball);
+                else if (keyName.equals("Space")) {
+                    if (CurrentGame.getNumberOfBalls() > 0)
+                        controller.shotBall(ball);
+                }
             }
         });
+        return ball;
+    }
+
+    public static void sendRequestFocus() {
+        borderPane.getChildren().get(borderPane.getChildren().size() - 1).requestFocus();
     }
 }
