@@ -2,7 +2,7 @@ package model;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import view.LoginMenu.LoginMenu;
+import view.loginMenu.LoginMenu;
 
 
 public class AvatarOrganizer {

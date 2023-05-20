@@ -8,8 +8,8 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="view.MainMenu.SettingMenu.ChangeNumberOfBalls"
-            prefHeight="600.0" prefWidth="800.0">
+            fx:controller="view.mainMenu.settingMenu.ChangeNumberOfBalls"
+            prefHeight="800.0" prefWidth="600.0">
 <!--            stylesheets="@../../styles/menusStyle.css"-->
     <bottom>
         <HBox alignment="CENTER_LEFT">

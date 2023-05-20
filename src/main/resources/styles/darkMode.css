@@ -27,7 +27,3 @@
 Button {
     -fx-background-color: black;
 }
-
-.BackGround {
-    -fx-background-image: url("./images/background.png");
-}

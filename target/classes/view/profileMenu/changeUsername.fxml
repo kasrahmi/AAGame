@@ -9,8 +9,8 @@
 <?import javafx.scene.text.Text?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="view.MainMenu.ProfileMenu.ProfileMenu"
-            prefHeight="600.0" prefWidth="800.0">
+            fx:controller="view.mainMenu.profileMenu.ProfileMenu"
+            prefHeight="800.0" prefWidth="600.0">
 <!--            stylesheets="@../../styles/menusStyle.css"-->
     <center>
         <VBox alignment="CENTER" spacing="10">

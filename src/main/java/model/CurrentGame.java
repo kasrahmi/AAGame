@@ -6,6 +6,7 @@ public class CurrentGame {
     private static int level = 2;
     private static int numberOfBalls = 20;
     private static boolean darkMode = false;
+    private static boolean muteSong = false;
 
     public static User getLoggedInUser() {
         return loggedInUser;
@@ -45,5 +46,13 @@ public class CurrentGame {
 
     public static void setDarkMode(boolean darkMode) {
         CurrentGame.darkMode = darkMode;
+    }
+
+    public static boolean isMuteSong() {
+        return muteSong;
+    }
+
+    public static void setMuteSong(boolean muteSong) {
+        CurrentGame.muteSong = muteSong;
     }
 }

@@ -25,4 +25,12 @@ public class SettingMenuController {
     public void setDarkMode(boolean darkMode) {
         CurrentGame.setDarkMode(darkMode);
     }
+
+    public static boolean isSongMute() {
+        return CurrentGame.isMuteSong();
+    }
+
+    public void setMuteAndUnMute(boolean muteAndUnMute) {
+        CurrentGame.setMuteSong(muteAndUnMute);
+    }
 }

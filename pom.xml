@@ -40,7 +40,11 @@
             <version>11-ea+24</version>
         </dependency>
         <!-- Thanks for using https://jar-download.com -->
-
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>16</version>
+        </dependency>
 
 
     </dependencies>

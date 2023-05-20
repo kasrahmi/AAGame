@@ -8,12 +8,12 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="view.MainMenu.ScoreBoardMenu.ScoreBoardMenuController"
-            prefHeight="600.0" prefWidth="800.0">
+            fx:controller="view.mainMenu.scoreBoardMenu.ScoreBoardMenuController"
+            prefHeight="800.0" prefWidth="600.0">
 <!--            stylesheets="@../../styles/menusStyle.css"-->
-    <bottom>
+    <top>
         <HBox alignment="CENTER_LEFT">
             <Button prefWidth="120" text="back" onMouseClicked="#back"/>
         </HBox>
-    </bottom>
+    </top>
 </BorderPane>

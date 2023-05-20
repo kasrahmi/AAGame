@@ -8,8 +8,8 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="view.MainMenu.MainMenuController"
-            stylesheets="@../../styles/menusStyle.css"
-            prefHeight="600.0" prefWidth="800.0">
+            fx:controller="view.mainMenu.MainMenuController"
+            prefHeight="800.0" prefWidth="600.0">
+<!--            stylesheets="@../../styles/menusStyle.css"-->
 
 </AnchorPane>
