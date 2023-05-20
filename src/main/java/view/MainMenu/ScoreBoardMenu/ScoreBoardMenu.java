@@ -1,5 +1,6 @@
 package view.MainMenu.ScoreBoardMenu;
 
+import controller.SettingMenuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -58,6 +59,11 @@ public class ScoreBoardMenu extends Application {
         pane.getChildren().add(borderPane);
 
         Scene scene = new Scene(pane);
+
+        if (SettingMenuController.isDarkMode())
+            scene.getStylesheets().add(LoginMenu.class.getResource("/styles/darkMode.css").toString());
+        else scene.getStylesheets().add(LoginMenu.class.getResource("/styles/menusStyle.css").toString());
+
         stage.setScene(scene);
         stage.show();
     }

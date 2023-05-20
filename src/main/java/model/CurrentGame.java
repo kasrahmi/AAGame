@@ -5,6 +5,7 @@ public class CurrentGame {
     private static boolean guestMode;
     private static int level = 2;
     private static int numberOfBalls = 20;
+    private static boolean darkMode = false;
 
     public static User getLoggedInUser() {
         return loggedInUser;
@@ -36,5 +37,13 @@ public class CurrentGame {
 
     public static void setNumberOfBalls(int numberOfBalls) {
         CurrentGame.numberOfBalls = numberOfBalls;
+    }
+
+    public static boolean isDarkMode() {
+        return darkMode;
+    }
+
+    public static void setDarkMode(boolean darkMode) {
+        CurrentGame.darkMode = darkMode;
     }
 }

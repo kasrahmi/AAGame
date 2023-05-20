@@ -17,4 +17,12 @@ public class SettingMenuController {
     public void setNumberOfBalls(int numberOfBalls) {
         CurrentGame.setNumberOfBalls(numberOfBalls);
     }
+
+    public static boolean isDarkMode() {
+        return CurrentGame.isDarkMode();
+    }
+
+    public void setDarkMode(boolean darkMode) {
+        CurrentGame.setDarkMode(darkMode);
+    }
 }

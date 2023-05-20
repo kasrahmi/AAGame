@@ -1,7 +1,6 @@
 .root {
     -fx-base: #3f474f;
     -fx-accent: #e7eff7 ;
-    -fx-default-button: #7f878f ;
     -fx-focus-color: #efefef;
     -fx-faint-focus-color: #efefef22;
     -fx-focused-text-base-color : ladder(
@@ -23,4 +22,12 @@
         -fx-dark-text-color  59%,
         -fx-mid-text-color   60%
     );
+}
+
+Button {
+    -fx-background-color: black;
+}
+
+.BackGround {
+    -fx-background-image: url("./images/background.png");
 }

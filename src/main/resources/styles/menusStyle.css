@@ -5,3 +5,7 @@ BorderPane {
 Button {
     -fx-background-color: orange;
 }
+
+.BackGroundColor {
+    -fx-background-image: url("../images/background.png");
+}

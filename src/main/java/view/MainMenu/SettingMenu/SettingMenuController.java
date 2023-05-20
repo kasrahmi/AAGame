@@ -63,7 +63,7 @@ public class SettingMenuController {
     }
 
     public void blackAndWhite(MouseEvent mouseEvent) {
-
+        controller.setDarkMode(!controller.isDarkMode());
     }
 
     public void changeLanguage(MouseEvent mouseEvent) {
@@ -84,6 +84,5 @@ public class SettingMenuController {
 
     public void changeDifficulty(MouseEvent mouseEvent) throws Exception {
         new ChangeDifficulty().start(SettingMenu.stage);
-
     }
 }

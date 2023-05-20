@@ -11,6 +11,7 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="view.LoginMenu.LoginMenuController"
             stylesheets="@../../styles/menusStyle.css"
+            styleClass="BackGround"
             prefHeight="600.0" prefWidth="800.0">
 
     <center>

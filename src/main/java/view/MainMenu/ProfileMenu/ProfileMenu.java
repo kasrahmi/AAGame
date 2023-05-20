@@ -1,6 +1,7 @@
 package view.MainMenu.ProfileMenu;
 
 import controller.ProfileMenuController;
+import controller.SettingMenuController;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -57,6 +58,10 @@ public class ProfileMenu extends Application {
 
         ProfileMenu.pane = pane;
         Scene scene = new Scene(pane);
+
+        if (SettingMenuController.isDarkMode())
+            scene.getStylesheets().add(LoginMenu.class.getResource("/styles/darkMode.css").toString());
+        else scene.getStylesheets().add(LoginMenu.class.getResource("/styles/menusStyle.css").toString());
 
         stage.setScene(scene);
         stage.show();

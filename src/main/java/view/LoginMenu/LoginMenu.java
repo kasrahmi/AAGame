@@ -1,5 +1,6 @@
 package view.LoginMenu;
 
+import controller.SettingMenuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,10 +25,10 @@ public class LoginMenu extends Application {
 
         URL url = LoginMenu.class.getResource("/view/loginMenu/loginMenu.fxml");
         Pane pane = FXMLLoader.load(url);
-        ImageView background = new ImageView(new Image(ProfileMenu.class.getResource("/images/background.png").toString(), 800 ,600, false, false));
-        ImageView background2 = new ImageView(new Image(ProfileMenu.class.getResource("/images/background.png").toString(), 800 ,600, false, false));
-
-        pane.getChildren().addAll(background, background2);
+//        ImageView background = new ImageView(new Image(ProfileMenu.class.getResource("/images/background.png").toString(), 800 ,600, false, false));
+//        ImageView background2 = new ImageView(new Image(ProfileMenu.class.getResource("/images/background.png").toString(), 800 ,600, false, false));
+//
+//        pane.getChildren().addAll(background, background2);
 
         url = LoginMenu.class.getResource("/view/loginMenu/loginMenuButtons.fxml");
         BorderPane borderPane2 = FXMLLoader.load(url);
@@ -35,6 +36,11 @@ public class LoginMenu extends Application {
 
 
         Scene scene = new Scene(pane);
+
+        if (SettingMenuController.isDarkMode())
+            scene.getStylesheets().add(LoginMenu.class.getResource("/styles/darkMode.css").toString());
+        else scene.getStylesheets().add(LoginMenu.class.getResource("/styles/menusStyle.css").toString());
+
         stage.setScene(scene);
         stage.show();
     }
