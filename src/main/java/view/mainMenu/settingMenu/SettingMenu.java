@@ -34,15 +34,9 @@ public class SettingMenu extends Application {
         URL url = LoginMenu.class.getResource("/view/settingMenu/settingMenu.fxml");
         Pane pane = FXMLLoader.load(url);
 
-//        ImageView background = new ImageView(new Image(ProfileMenu.class.getResource("/images/background.png").toString(), 800 ,600, false, false));
-//        ImageView background2 = new ImageView(new Image(ProfileMenu.class.getResource("/images/background.png").toString(), 800 ,600, false, false));
-//
-//        pane.getChildren().addAll(background, background2);
-
         url = LoginMenu.class.getResource("/view/settingMenu/settingMenuButtons.fxml");
         BorderPane borderPane = FXMLLoader.load(url);
 
-//        makeBorderPaneSetting(borderPane);
         pane.getChildren().add(borderPane);
 
         Scene scene = new Scene(pane);

@@ -47,11 +47,6 @@ public class ProfileMenu extends Application {
         ProfileMenu.stage = stage;
         Pane pane = FXMLLoader.load(ProfileMenu.class.getResource("/view/profileMenu/profileMenu.fxml"));
 
-//        ImageView background = new ImageView(new Image(ProfileMenu.class.getResource("/images/background.png").toString(), 800 ,600, false, false));
-//        ImageView background2 = new ImageView(new Image(ProfileMenu.class.getResource("/images/background.png").toString(), 800 ,600, false, false));
-//
-//        pane.getChildren().addAll(background, background2);
-
         BorderPane borderPane = FXMLLoader.load(ProfileMenu.class.getResource("/view/profileMenu/profileMenuButtons.fxml"));
         pane.getChildren().add(borderPane);
 

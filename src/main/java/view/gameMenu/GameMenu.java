@@ -47,14 +47,14 @@ public class GameMenu extends Application {
         text.setFill(Color.WHITE);
         text.setFont(Font.font(40));
 
-        RotateTransition transition = new RotateTransition();
-        transition.setNode(mainCircle);
-        transition.setDuration(Duration.millis(CurrentGame.getDifficulty().getRotationTime()));
-        transition.setFromAngle(0);
-        transition.setToAngle(360);
-        transition.setCycleCount(-1);
-        transition.setInterpolator(Interpolator.LINEAR);
-        transition.play();
+//        RotateTransition transition = new RotateTransition();
+//        transition.setNode(mainCircle);
+//        transition.setDuration(Duration.millis(CurrentGame.getDifficulty().getRotationTime()));
+//        transition.setFromAngle(0);
+//        transition.setToAngle(360);
+//        transition.setCycleCount(-1);
+//        transition.setInterpolator(Interpolator.LINEAR);
+//        transition.play();
 
         controller.getNumberOfBallsEachPhase();
         Ball ball = createBallHandler();
