@@ -1,17 +1,18 @@
 package controller;
 
 import model.CurrentGame;
+import model.Difficulty;
 
 public class SettingMenuController {
-    public int getLevel() {
-        return CurrentGame.getLevel();
+    public String getLevel() {
+        return CurrentGame.getDifficulty().getDifficulty();
     }
 
     public int getNumberOfBalls() {
         return CurrentGame.getNumberOfBalls();
     }
-    public void setLevel(int i) {
-        CurrentGame.setLevel(i);
+    public void setDifficulty(String difficulty) {
+        CurrentGame.setDifficulty(Difficulty.getDifficulty(difficulty));
     }
 
     public void setNumberOfBalls(int numberOfBalls) {

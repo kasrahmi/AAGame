@@ -95,7 +95,7 @@ public class ChangeDifficulty extends Application {
             makeOnActionCheckBoxes(checkBox);
         }
         for (CheckBox checkBox : checkBoxes) {
-            if (checkBox.getId().equals(String.valueOf(controller.getLevel()))) {
+            if (checkBox.getText().equals(String.valueOf(controller.getLevel()))) {
                 checkBox.setSelected(true);
                 break;
             }
@@ -110,7 +110,7 @@ public class ChangeDifficulty extends Application {
                     for (CheckBox box : checkBoxes) {
                         if (!checkBox.getText().equals(box.getText())) box.setSelected(false);
                     }
-                controller.setLevel(Integer.parseInt(checkBox.getId()));
+                controller.setDifficulty(checkBox.getText());
                 }
             }
         });

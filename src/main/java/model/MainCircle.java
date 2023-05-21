@@ -9,8 +9,8 @@ public class MainCircle extends Circle {
     public MainCircle() {
         super(300, 250, 100);
 
-//        this.setFill(Color.BLACK);
-        this.setFill(new ImagePattern(
-                new Image("file:/Users/kasrahmi/Downloads/IMG_6538.png")));
+        this.setFill(Color.BLACK);
+//        this.setFill(new ImagePattern(
+//                new Image("file:/Users/kasrahmi/Downloads/IMG_6538.png")));
     }
 }

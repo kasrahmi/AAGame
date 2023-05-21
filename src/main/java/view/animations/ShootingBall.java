@@ -26,7 +26,7 @@ public class ShootingBall extends Transition {
     @Override
     protected void interpolate(double v) {
         double y = ball.getCenterY() - 10;
-        double x = ball.getCenterX() - 10;
+        double x = ball.getCenterX() - CurrentGame.getDifficulty().getWindSpeed();
 
 //        System.out.println(GameMenuController.balls.size());
         for (Ball ball1 : GameMenuController.balls) {
@@ -44,6 +44,7 @@ public class ShootingBall extends Transition {
             this.stop();
         }
 
+        ball.setCenterX(x);
         ball.setCenterY(y);
     }
 
@@ -60,16 +61,16 @@ public class ShootingBall extends Transition {
         ball.getTransforms().add(rotate);
         addLine(rotate);
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.millis(1500 * CurrentGame.getLevel()), new KeyValue(rotate.angleProperty(), 360)));
+                new KeyFrame(Duration.millis(CurrentGame.getDifficulty().getRotationTime()), new KeyValue(rotate.angleProperty(), 360)));
         timeline.setCycleCount(-1);
         timeline.play();
         GameMenuController.balls.add(ball);
     }
 
     private void addLine(Rotate rotate) {
-        Line line = new Line(ball.getCenterX(), ball.getCenterY() - 15, 300, 355);
+        Line line = new Line(ball.getCenterX(), ball.getCenterY() - 15, 300, 250);
         line.setStrokeWidth(10);
         line.getTransforms().add(rotate);
-        pane.getChildren().add(line);
+        pane.getChildren().add(0, line);
     }
 }

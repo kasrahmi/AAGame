@@ -3,7 +3,7 @@ package model;
 public class CurrentGame {
     private static User loggedInUser;
     private static boolean guestMode;
-    private static int level = 2;
+    private static Difficulty difficulty = Difficulty.MEDIUM;
     private static int numberOfBalls = 20;
     private static boolean darkMode = false;
     private static boolean muteSong = false;
@@ -25,12 +25,12 @@ public class CurrentGame {
         CurrentGame.guestMode = guestMode;
     }
 
-    public static int getLevel() {
-        return level;
+    public static Difficulty getDifficulty() {
+        return difficulty;
     }
 
-    public static void setLevel(int level) {
-        CurrentGame.level = level;
+    public static void setDifficulty(Difficulty difficulty) {
+        CurrentGame.difficulty = difficulty;
     }
 
     public static int getNumberOfBalls() {
