@@ -7,6 +7,7 @@ public class CurrentGame {
     private static int numberOfBalls = 20;
     private static boolean darkMode = false;
     private static boolean muteSong = false;
+    private static int phase = 1;
 
     public static User getLoggedInUser() {
         return loggedInUser;
@@ -54,5 +55,13 @@ public class CurrentGame {
 
     public static void setMuteSong(boolean muteSong) {
         CurrentGame.muteSong = muteSong;
+    }
+
+    public static int getPhase() {
+        return phase;
+    }
+
+    public static void setPhase(int phase) {
+        CurrentGame.phase = phase;
     }
 }

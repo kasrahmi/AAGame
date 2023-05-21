@@ -11,6 +11,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Ball;
@@ -38,6 +41,11 @@ public class GameMenu extends Application {
         GameMenu.borderPane = borderPane;
 
         MainCircle mainCircle = new MainCircle();
+        Text text = new Text(String.valueOf(CurrentGame.getPhase()));
+        text.setTranslateX(292);
+        text.setTranslateY(260);
+        text.setFill(Color.WHITE);
+        text.setFont(Font.font(40));
 
         RotateTransition transition = new RotateTransition();
         transition.setNode(mainCircle);
@@ -48,9 +56,10 @@ public class GameMenu extends Application {
         transition.setInterpolator(Interpolator.LINEAR);
         transition.play();
 
+        controller.getNumberOfBallsEachPhase();
         Ball ball = createBallHandler();
 
-        borderPane.getChildren().addAll(mainCircle, ball);
+        borderPane.getChildren().addAll(mainCircle, text, ball);
         pane.getChildren().add(borderPane);
         Scene scene = new Scene(pane);
 
@@ -80,8 +89,8 @@ public class GameMenu extends Application {
                 if (keyName.equals("Tab"))
                     controller.freeze();
                 else if (keyName.equals("Space")) {
-                    if (CurrentGame.getNumberOfBalls() > 0)
-                        controller.shotBall(ball);
+                    if (controller.getNumberOfBalls() > 0)
+                        controller.shotBall();
                 }
             }
         });
