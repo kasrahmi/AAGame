@@ -2,6 +2,7 @@ package view.mainMenu;
 
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
+import model.Database;
 import view.gameMenu.GameMenu;
 import view.loginMenu.LoginMenu;
 import view.mainMenu.profileMenu.ProfileMenu;
@@ -34,6 +35,7 @@ public class MainMenuController {
 
     public void logout(MouseEvent mouseEvent) throws Exception {
         controller.logout();
+        Database.saveUsers();
         new LoginMenu().start(MainMenu.stage);
     }
 

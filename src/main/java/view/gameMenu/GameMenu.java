@@ -2,19 +2,19 @@ package view.gameMenu;
 
 import controller.GameMenuController;
 import controller.SettingMenuController;
-import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
-import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -22,7 +22,6 @@ import javafx.util.Duration;
 import model.Ball;
 import model.CurrentGame;
 import model.MainCircle;
-import view.animations.ShootingBall;
 import view.loginMenu.LoginMenu;
 import view.mainMenu.MainMenu;
 
@@ -34,12 +33,16 @@ public class GameMenu extends Application {
     private static controller.GameMenuController controller = new controller.GameMenuController();
     private static Scene scene;
     public static MainCircle mainCircle;
+    public Text numberOfBall = new Text();
     @Override
     public void start(Stage stage) throws Exception {
         GameMenu.stage = stage;
 
-        GameMenuController.balls.clear();
-        GameMenuController.timelines .clear();
+
+//        borderPane.getChildren().removeAll(GameMenuController.timelines);
+//        GameMenuController.balls.clear();
+//        GameMenuController.timelines.clear();
+//        GameMenuController.lines.clear();
         URL url = LoginMenu.class.getResource("/view/gameMenu/gameMenu.fxml");
         Pane pane = FXMLLoader.load(url);
 
@@ -47,6 +50,18 @@ public class GameMenu extends Application {
         BorderPane borderPane = FXMLLoader.load(url);
 
         GameMenu.borderPane = borderPane;
+        for (Node child : borderPane.getChildren()) {
+            if (child instanceof Line) {
+                borderPane.getChildren().remove(child);
+                break;
+            }
+        }
+        borderPane.getChildren().removeAll(GameMenuController.balls);
+        borderPane.getChildren().removeAll(GameMenuController.lines);
+
+        GameMenuController.balls.clear();
+        GameMenuController.timelines.clear();
+        GameMenuController.lines.clear();
 
         MainCircle mainCircle = new MainCircle();
         Text text = new Text(String.valueOf(CurrentGame.getPhase()));
@@ -56,17 +71,24 @@ public class GameMenu extends Application {
         text.setFont(Font.font(40));
         GameMenu.mainCircle = mainCircle;
 
-//        Timeline timeline = new Timeline(
-//                new KeyFrame(Duration.seconds(4.5), e -> reverse()),
-//                new KeyFrame(Duration.seconds(9), e -> autoReverseOff())
-//                );
-//        timeline.setCycleCount(-1);
-//        timeline.setAutoReverse(true);
-//        timeline.play();
+        if (CurrentGame.getPhase() > 1) {
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.seconds(4), e -> reverseTimeLine())
+            );
+            timeline.setCycleCount(-1);
+            timeline.setAutoReverse(true);
+            timeline.play();
+        }
+
         controller.getNumberOfBallsEachPhase();
         Ball ball = createBallHandler();
 
-        borderPane.getChildren().addAll(mainCircle, text, ball);
+        numberOfBall.setX(310);
+        numberOfBall.setY(600);
+        numberOfBall.setText(String.valueOf(GameMenuController.numberOfBalls));
+        numberOfBall.setFill(Color.WHITE);
+
+        borderPane.getChildren().addAll(mainCircle, text, numberOfBall, ball);
         pane.getChildren().add(borderPane);
         Scene scene = new Scene(pane);
 
@@ -82,22 +104,14 @@ public class GameMenu extends Application {
         stage.show();
     }
 
-    private void reverse() {
-        for (Timeline timeline : GameMenuController.timelines) {
-            timeline.stop();
-        }
-        for (Timeline reverseTimeline : GameMenuController.reverseTimelines) {
-            reverseTimeline.play();
-        }
+    private void reverseTimeLine() {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(getRandomTime()), e -> reverse()));
+        timeline.setCycleCount(0);
+        timeline.play();
     }
 
-    private void autoReverseOff() {
-        for (Timeline reverseTimeline : GameMenuController.reverseTimelines) {
-            reverseTimeline.stop();
-        }
-        for (Timeline timeline : GameMenuController.timelines) {
-            timeline.play();
-        }
+    private void reverse() {
+        GameMenuController.rotateAnimation.setAngeleRotate((-1) * GameMenuController.rotateAnimation.getAngeleRotate());
     }
 
     public void back(MouseEvent mouseEvent) throws Exception {
@@ -107,22 +121,36 @@ public class GameMenu extends Application {
     public Ball createBallHandler() {
         Ball ball = new Ball();
         ball.requestFocus();
+        if (GameMenuController.numberOfBalls == CurrentGame.getNumberOfBalls()) {
+            for (int i = 0; i < borderPane.getChildren().size(); i++) {
+                if (borderPane.getChildren().get(i) instanceof Line) {
+                    borderPane.getChildren().remove(borderPane.getChildren().get(i));
+                    i--;
+                }
+            }
+        }
         ball.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
                 String keyName = keyEvent.getCode().getName();
 
-                if (keyName.equals("Tab"))
+                if (keyName.equals("Tab")) {
                     controller.freeze();
+                    ball.requestFocus();
+                }
                 else if (keyName.equals("Space")) {
-                    if (controller.getNumberOfBalls() > 0) {
-                        controller.shotBall();
-                    } else {
-                        try {
-                            moveToNextPhase();
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
+                    if (controller.getNumberOfBalls() > -1) {
+                        if (GameMenuController.numberOfBalls == 0) {
+                            borderPane.getChildren().remove(ball);
+                            borderPane.getChildren().remove(numberOfBall);
+                            try {
+                                moveToNextPhase();
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
                         }
+                        controller.shotBall();
+                        numberOfBall.setText(String.valueOf(GameMenuController.numberOfBalls));
                     }
                 }
             }
@@ -132,7 +160,7 @@ public class GameMenu extends Application {
 
     private void moveToNextPhase() throws Exception {
         CurrentGame.setPhase(CurrentGame.getPhase() + 1);
-        new GameMenu().start(GameMenu.stage);
+        start(GameMenu.stage);
     }
 
     public static void loseTheGame() {
@@ -142,9 +170,9 @@ public class GameMenu extends Application {
         text.setTranslateX(270);
         text.setTranslateY(500);
         text.setFont(Font.font(20));
-        for (Timeline timeline : GameMenuController.timelines) {
-            timeline.stop();
-        }
+        GameMenuController.rotateAnimation.stop();
+        if (CurrentGame.getLoggedInUser() != null) CurrentGame.getLoggedInUser().setHighScore(scoreCalculator());
+        CurrentGame.setPhase(1);
         GameMenu.scene.setOnKeyPressed((new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -166,9 +194,13 @@ public class GameMenu extends Application {
         int score = 0;
         for (int i = 0; i <= CurrentGame.getPhase(); i++) {
             if (i == CurrentGame.getPhase()) {
-                score += (i) * (CurrentGame.getNumberOfBalls() - controller.numberOfBalls);
+                score += (i) * (CurrentGame.getNumberOfBalls() - GameMenuController.numberOfBalls);
             } else score += i * CurrentGame.getNumberOfBalls();
         }
-        return score;
+        return score * CurrentGame.getDifficulty().getLevelDifficulty();
+    }
+
+    private double getRandomTime() {
+        return Math.random() * 4;
     }
 }

@@ -20,9 +20,9 @@ public class ScoreBoardController {
         ArrayList<User> users = Database.getUsers();
         for (int i = 0; i < users.size(); i++) {
             for (int j = 0; j < i; j++) {
-                if (users.get(i).getScore() > users.get(j).getScore() ||
-                    (users.get(i).getScore() == users.get(j).getScore() &&
-                    users.get(i).getTime() < users.get(j).getScore())) {
+                if (users.get(i).getHighScore() > users.get(j).getHighScore() ||
+                    (users.get(i).getHighScore() == users.get(j).getHighScore() &&
+                    users.get(i).getTime() < users.get(j).getHighScore())) {
                     User tmp = users.get(i);
                     users.set(i, users.get(j));
                     users.set(j, tmp);

@@ -4,7 +4,10 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private int score;
+    private int highScore;
+    private int scoreEasy;
+    private int scoreMedium;
+    private int scoreHard;
     private int level;
     private int time;
     private String pathAvatar;
@@ -13,7 +16,10 @@ public class User {
         this.password = password;
         this.email = email;
         this.pathAvatar = pathAvatar;
-        this.score = 0;
+        this.highScore = 0;
+        this.scoreEasy = 0;
+        this.scoreMedium = 0;
+        this.scoreHard = 0;
         this.level = 1;
         this.time = 0;
     }
@@ -42,12 +48,12 @@ public class User {
         this.email = email;
     }
 
-    public int getScore() {
-        return score;
+    public int getHighScore() {
+        return highScore;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setHighScore(int highScore) {
+        this.highScore = highScore;
     }
 
     public int getLevel() {
@@ -74,8 +80,42 @@ public class User {
         this.pathAvatar = pathAvatar;
     }
 
+    public int getScoreEasy() {
+        return scoreEasy;
+    }
+
+    public void setScoreEasy(int scoreEasy) {
+        if (this.scoreEasy < scoreEasy)
+            this.scoreEasy = scoreEasy;
+    }
+
+    public int getScoreMedium() {
+        return scoreMedium;
+    }
+
+    public void setScoreMedium(int scoreMedium) {
+        if (this.scoreMedium < scoreMedium)
+            this.scoreMedium = scoreMedium;
+    }
+
+    public int getScoreHard() {
+        return scoreHard;
+    }
+
+    public void setScoreHard(int scoreHard) {
+        if (this.scoreHard < scoreHard)
+            this.scoreHard = scoreHard;
+    }
+
+    public void setScore(int score) {
+        if (score > this.highScore) setHighScore(score);
+        if (CurrentGame.getDifficulty().difficulty.equals("easy")) setScoreEasy(score);
+        else if (CurrentGame.getDifficulty().difficulty.equals("medium")) setScoreMedium(score);
+        else setScoreHard(score);
+    }
+
     @Override
     public String toString() {
-        return getUsername() + "\tscore : " + getScore() + "\ttime : " + getTime();
+        return getUsername() + "\tscore : " + getHighScore() + "\ttime : " + getTime();
     }
 }
