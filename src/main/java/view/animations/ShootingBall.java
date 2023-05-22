@@ -6,6 +6,7 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.animation.Transition;
 import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
@@ -39,13 +40,14 @@ public class ShootingBall extends Transition {
         if (x <= 10 || x >= 590) pane.getChildren().remove(ball);
         if (getDistanceFromCenterOfTheCircle(x, y) <= 200) {
             GameMenuController.rotationBalls(ball, text);
-//            rotationBalls();
             this.stop();
         }
 
-        ball.setCenterX(x);
+        if (CurrentGame.getPhase() == 4) {
+            ball.setCenterX(x);
+            text.setX(x - 2);
+        }
         ball.setCenterY(y);
-        text.setX(x - 2);
         text.setY(y + 3);
     }
 
@@ -53,8 +55,11 @@ public class ShootingBall extends Transition {
         return Math.sqrt(Math.pow(x - 300, 2) + Math.pow(y - 250, 2));
     }
 
-//    private boolean twoBallsCrashed(double x1, double y1, double x2, double y2) {
-//        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2)) < 20;
+//    private boolean twoBallsCrashed(Ball ball1, Ball ball2) {
+//        Point2D point2DFirstBall = ball1.localToScene(ball1.getCenterX(), ball1.getCenterY());
+//        Point2D point2DSecondBall = ball2.localToScene(ball2.getCenterX(), ball2.getCenterY());
+//        return Math.sqrt(Math.pow(point2DFirstBall.getX() - point2DSecondBall.getX(), 2) +
+//                Math.pow(point2DFirstBall.getY() - point2DSecondBall.getY(), 2)) < ball1.getRadius() + ball2.getRadius();
 //    }
 
 //    public void rotationBalls() {

@@ -1,8 +1,10 @@
 package controller;
 
+import controller.utils.checkBallsCrashed;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -23,6 +25,7 @@ public class GameMenuController {
     public static ArrayList<Ball> balls = new ArrayList<>();
     public static ArrayList<Timeline> timelines = new ArrayList<>();
     public static ArrayList<Timeline> reverseTimelines = new ArrayList<>();
+    public static ArrayList<Group> groups = new ArrayList<>();
     public static ArrayList<Line> lines = new ArrayList<>();
     public static int numberOfBalls;
     public static RotateAnimation rotateAnimation = new RotateAnimation();
@@ -33,19 +36,27 @@ public class GameMenuController {
         text.getTransforms().addAll(rotateAnimation.getRotate(), rotate);
 
         Line line = new Line(ball.getCenterX(), ball.getCenterY() - 15, 300, 250);
-        line.setStrokeWidth(10);
+        line.setStrokeWidth(2);
         line.getTransforms().addAll(rotate, rotateAnimation.getRotate());
         GameMenu.borderPane.getChildren().add(0, line);
         lines.add(line);
 
+        makeGroups(ball, line, text);
+
         rotateAnimation.play();
         for (Ball ball1 : GameMenuController.balls) {
-            if (ball.getBoundsInParent().intersects(ball1.getBoundsInParent()) && !ball1.equals(ball)) {
+            if (checkBallsCrashed.twoBallsCrashed(ball, ball1)) {
                 GameMenu.loseTheGame();
                 return;
             }
         }
         balls.add(ball);
+    }
+
+    private static void makeGroups(Ball ball, Line line, Text text) {
+        Group group = new Group(ball, line, text);
+        groups.add(group);
+        GameMenu.borderPane.getChildren().add(0, group);
     }
 
     public void freeze() {
@@ -72,7 +83,7 @@ public class GameMenuController {
     }
 
     public void getNumberOfBallsEachPhase() {
-        this.numberOfBalls = CurrentGame.getNumberOfBalls();
+        numberOfBalls = CurrentGame.getNumberOfBalls();
     }
 
     public int getNumberOfBalls() {

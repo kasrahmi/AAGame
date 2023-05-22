@@ -2,11 +2,13 @@ package view.gameMenu;
 
 import controller.GameMenuController;
 import controller.SettingMenuController;
+import controller.utils.checkBallsCrashed;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
@@ -26,6 +28,7 @@ import view.loginMenu.LoginMenu;
 import view.mainMenu.MainMenu;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 public class GameMenu extends Application {
     private static Stage stage;
@@ -34,6 +37,10 @@ public class GameMenu extends Application {
     private static Scene scene;
     public static MainCircle mainCircle;
     public Text numberOfBall = new Text();
+    static ArrayList<Ball> ballsGotBigger = new ArrayList<>();
+    static Timeline changeRadiusTimeline = new Timeline();
+    static Timeline reverseTimeLine = new Timeline();
+    static Timeline invisbleTimeLine = new Timeline();
     @Override
     public void start(Stage stage) throws Exception {
         GameMenu.stage = stage;
@@ -62,6 +69,7 @@ public class GameMenu extends Application {
         GameMenuController.balls.clear();
         GameMenuController.timelines.clear();
         GameMenuController.lines.clear();
+        ballsGotBigger.clear();
 
         MainCircle mainCircle = new MainCircle();
         Text text = new Text(String.valueOf(CurrentGame.getPhase()));
@@ -72,12 +80,9 @@ public class GameMenu extends Application {
         GameMenu.mainCircle = mainCircle;
 
         if (CurrentGame.getPhase() > 1) {
-            Timeline timeline = new Timeline(
-                    new KeyFrame(Duration.seconds(4), e -> reverseTimeLine())
-            );
-            timeline.setCycleCount(-1);
-            timeline.setAutoReverse(true);
-            timeline.play();
+            triggerReverse();
+            changeBallSize();
+            if (CurrentGame.getPhase() == 3) invisibleTimeLineMaker();
         }
 
         controller.getNumberOfBallsEachPhase();
@@ -102,6 +107,81 @@ public class GameMenu extends Application {
         GameMenu.scene = scene;
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void invisibleTimeLineMaker() {
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(2), e -> makeBallsInvisible()));
+        invisbleTimeLine = timeline;
+        timeline.setCycleCount(-1);
+        timeline.play();
+    }
+
+    private void makeBallsInvisible() {
+        for (Group group : GameMenuController.groups) {
+            group.setVisible(false);
+        }
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1), e -> makeBallsVisible()));
+        timeline.setCycleCount(0);
+        timeline.play();
+    }
+
+    private void makeBallsVisible() {
+        for (Group group : GameMenuController.groups) {
+            group.setVisible(true);
+        }
+    }
+
+    private void changeBallSize() {
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(2), e -> makeBallBigger()));
+        changeRadiusTimeline = timeline;
+        timeline.setCycleCount(-1);
+        timeline.play();
+    }
+
+    private void makeBallBigger() {
+        for (Ball ball : GameMenuController.balls) {
+            ballsGotBigger.add(ball);
+            ball.setRadius(ball.getRadius() * 1.15);
+        }
+        if (intersectBalls()) {
+            ballsGotBigger.clear();
+            loseTheGame();
+        }
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1), e -> makeBallSmaller()));
+        timeline.setCycleCount(0);
+        timeline.play();
+    }
+
+    private void makeBallSmaller() {
+        for (int i = 0; i < ballsGotBigger.size(); i++) {
+            ballsGotBigger.get(i).setRadius(ballsGotBigger.get(i).getRadius() * 100 / 115);
+            ballsGotBigger.remove(ballsGotBigger.get(i));
+            i--;
+        }
+    }
+
+    private boolean intersectBalls() {
+        for (Ball ball : GameMenuController.balls) {
+            for (Ball ball1 : GameMenuController.balls) {
+                if (!ball1.equals(ball) && checkBallsCrashed.twoBallsCrashed(ball, ball1))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    private void triggerReverse() {
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(4), e -> reverseTimeLine())
+        );
+        reverseTimeLine = timeline;
+        timeline.setCycleCount(-1);
+        timeline.setAutoReverse(true);
+        timeline.play();
     }
 
     private void reverseTimeLine() {
@@ -129,7 +209,7 @@ public class GameMenu extends Application {
                 }
             }
         }
-        ball.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        ball.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
                 String keyName = keyEvent.getCode().getName();
@@ -159,8 +239,12 @@ public class GameMenu extends Application {
     }
 
     private void moveToNextPhase() throws Exception {
+        invisbleTimeLine.stop();
+        reverseTimeLine.stop();
+        changeRadiusTimeline.stop();
+        GameMenuController.rotateAnimation.setAngeleRotate(CurrentGame.getDifficulty().getRotateAngle());
         CurrentGame.setPhase(CurrentGame.getPhase() + 1);
-        start(GameMenu.stage);
+        new GameMenu().start(GameMenu.stage);
     }
 
     public static void loseTheGame() {
@@ -171,6 +255,10 @@ public class GameMenu extends Application {
         text.setTranslateY(500);
         text.setFont(Font.font(20));
         GameMenuController.rotateAnimation.stop();
+        ballsGotBigger.clear();
+        invisbleTimeLine.stop();
+        reverseTimeLine.stop();
+        changeRadiusTimeline.stop();
         if (CurrentGame.getLoggedInUser() != null) CurrentGame.getLoggedInUser().setHighScore(scoreCalculator());
         CurrentGame.setPhase(1);
         GameMenu.scene.setOnKeyPressed((new EventHandler<KeyEvent>() {
