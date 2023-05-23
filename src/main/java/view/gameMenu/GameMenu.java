@@ -6,6 +6,7 @@ import controller.utils.checkBallsCrashed;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,14 +17,18 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Ball;
@@ -36,6 +41,8 @@ import view.mainMenu.MainMenu;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GameMenu extends Application {
     private static Stage stage;
@@ -53,6 +60,12 @@ public class GameMenu extends Application {
     public Button resumeButton = new Button();
     public Text score;
     public ProgressBar progressBar;
+    public ArrayList<Ball> defaultBalls = new ArrayList<>();
+    public static MediaPlayer mediaPlayer;
+    public static double time = 0.0;
+    public static Timer timer;
+    public static TimerTask task;
+    public static Label label;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -72,12 +85,33 @@ public class GameMenu extends Application {
         url = LoginMenu.class.getResource("/view/gameMenu/gameMenuButtons.fxml");
         BorderPane borderPane = FXMLLoader.load(url);
 
+        if (!CurrentGame.isMuteSong()) {
+            Media media = new Media(getClass().getResource("/sounds/1.mp3").toString());
+            mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.play();
+        }
+
         progressBar = new ProgressBar(0);
         progressBar.setFocusTraversable(false);
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER_RIGHT);
         vBox.setFocusTraversable(false);
         vBox.getChildren().add(progressBar);
+
+        Label label = new Label("seconds : " + time);
+        this.label = label;
+
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                time += 0.5;
+                Platform.runLater(() -> label.setText("seconds : " + time));
+            }
+        };
+        GameMenu.timer = timer;
+        GameMenu.task = task;
+        timer.scheduleAtFixedRate(task, 0, 500);
 
         GameMenu.borderPane = borderPane;
         for (Node child : borderPane.getChildren()) {
@@ -105,11 +139,18 @@ public class GameMenu extends Application {
         text.setFill(Color.WHITE);
         text.setFont(Font.font(40));
         GameMenu.mainCircle = mainCircle;
+        GameMenuController.rotateAnimation = mainCircle.getRotateAnimation();
+        GameMenuController.rotateAnimation.play();
+        makeDefaultBalls();
 
         if (CurrentGame.getPhase() > 1) {
             triggerReverse();
             changeBallSize();
-            if (CurrentGame.getPhase() == 3) invisibleTimeLineMaker();
+            if (CurrentGame.getPhase() >= 3) invisibleTimeLineMaker();
+            if (CurrentGame.getPhase() == 4) {
+                Label windLabel = new Label("wind speed is : - " + (CurrentGame.getDifficulty().getWindSpeed() * 4));
+                borderPane.setRight(windLabel);
+            }
         }
         controller.getNumberOfBallsEachPhase();
 
@@ -129,7 +170,12 @@ public class GameMenu extends Application {
         numberOfBall.setFill(Color.WHITE);
 
         borderPane.setTop(vBox);
-        borderPane.getChildren().addAll(mainCircle, text, numberOfBall, ball);
+        borderPane.setLeft(label);
+        borderPane.getChildren().addAll(mainCircle, text, numberOfBall);
+        for (Ball defaultBall : defaultBalls) {
+            borderPane.getChildren().add(defaultBall);
+        }
+        borderPane.getChildren().add(ball);
         pane.getChildren().add(borderPane);
         Scene scene = new Scene(pane);
 
@@ -143,6 +189,22 @@ public class GameMenu extends Application {
         GameMenu.scene = scene;
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void makeDefaultBalls() {
+        int rotation = 360 / CurrentGame.getNumberOfDefaultBalls();
+        GameMenuController.rotateAnimation.play();
+        controller.getNumberOfBallsEachPhase();
+        for (int i = 0; i < CurrentGame.getNumberOfDefaultBalls(); i++) {
+            Ball ball = new Ball();
+            ball.setCenterX(300);
+            ball.setCenterY(440);
+            Rotate rotate = new Rotate(30 + (rotation * i), 300, 250);
+            ball.getTransforms().add(rotate);
+            GameMenuController.rotationBalls(ball, rotate);
+            defaultBalls.add(ball);
+        }
+        controller.getNumberOfBallsEachPhase();
     }
 
     private void invisibleTimeLineMaker() {
@@ -230,10 +292,6 @@ public class GameMenu extends Application {
         GameMenuController.rotateAnimation.setAngeleRotate((-1) * GameMenuController.rotateAnimation.getAngeleRotate());
     }
 
-//    public void back(MouseEvent mouseEvent) throws Exception {
-//        new MainMenu().start(GameMenu.stage);
-//    }
-
     public Ball createBallHandler() {
         Ball ball = new Ball();
         GameMenu.ball = ball;
@@ -260,6 +318,8 @@ public class GameMenu extends Application {
                         }
                     }
                 } else if (keyName.equals("Ctrl")) pause();
+                else if (keyName.equals("Left") && CurrentGame.getPhase() == 4) controller.moveBallLeft();
+                else if (keyName.equals("Right") && CurrentGame.getPhase() == 4) controller.moveBallRight();
             }
         });
         return ball;
@@ -272,6 +332,7 @@ public class GameMenu extends Application {
     }
 
     public static void moveToNextPhase() {
+        pauseTimer();
         invisbleTimeLine.stop();
         reverseTimeLine.stop();
         changeRadiusTimeline.stop();
@@ -295,6 +356,7 @@ public class GameMenu extends Application {
     }
 
     public static void loseTheGame() {
+        pauseTimer();
         Text text = new Text("Game over!\n" +
                 "Enter any key to back to main menu\n" +
                 "Score : " + scoreCalculator());
@@ -310,7 +372,8 @@ public class GameMenu extends Application {
         GameMenu.invisbleTimeLine = new Timeline();
         GameMenu.reverseTimeLine = new Timeline();
         GameMenu.changeRadiusTimeline = new Timeline();
-        if (CurrentGame.getLoggedInUser() != null) CurrentGame.getLoggedInUser().setScore(scoreCalculator());
+        if (CurrentGame.getLoggedInUser() != null) CurrentGame.getLoggedInUser().setScore(scoreCalculator(), time);
+        GameMenu.time = 0;
         CurrentGame.setPhase(1);
         GameMenu.scene.setOnKeyPressed((new EventHandler<KeyEvent>() {
             @Override
@@ -344,6 +407,7 @@ public class GameMenu extends Application {
     }
 
     public void pause() {
+        pauseTimer();
         invisbleTimeLine.stop();
         reverseTimeLine.stop();
         changeRadiusTimeline.stop();
@@ -369,7 +433,24 @@ public class GameMenu extends Application {
         changeRadiusTimeline.play();
         GameMenuController.rotateAnimation.play();
         if (GameMenuController.shootingBall != null) GameMenuController.shootingBall.play();
+        resumeTimer();
         ball.requestFocus();
+    }
+
+    private static void pauseTimer() {
+        timer.cancel();
+    }
+
+    private static void resumeTimer() {
+        timer = new Timer();
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                time += 0.5;
+                Platform.runLater(() -> label.setText("seconds : " + time));
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 500);
     }
 
     public void saveGameAndExit() throws Exception {
@@ -379,5 +460,27 @@ public class GameMenu extends Application {
 
     public void exit() throws Exception {
         new MainMenu().start(GameMenu.stage);
+    }
+
+    public void changeMusic(MouseEvent mouseEvent) {
+        mediaPlayer.stop();
+        CurrentGame.setSongNumber(CurrentGame.getSongNumber() % 3 + 1);
+        Media media = new Media(getClass().getResource("/sounds/" + CurrentGame.getSongNumber() + ".mp3").toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
+    }
+
+    public void muteMusic(MouseEvent mouseEvent) {
+        SettingMenuController.setMuteAndUnMute(!SettingMenuController.isSongMute());
+        if (SettingMenuController.isSongMute()) GameMenu.mediaPlayer.stop();
+        else GameMenu.mediaPlayer.play();
+    }
+
+    public void buttonGuide(MouseEvent mouseEvent) {
+
+    }
+
+    public void restart(MouseEvent mouseEvent) {
+
     }
 }

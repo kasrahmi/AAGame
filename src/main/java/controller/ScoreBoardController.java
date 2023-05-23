@@ -22,7 +22,7 @@ public class ScoreBoardController {
             for (int j = 0; j < i; j++) {
                 if (users.get(i).getHighScore() > users.get(j).getHighScore() ||
                     (users.get(i).getHighScore() == users.get(j).getHighScore() &&
-                    users.get(i).getTime() < users.get(j).getHighScore())) {
+                    users.get(i).getTime() < users.get(j).getTime())) {
                     User tmp = users.get(i);
                     users.set(i, users.get(j));
                     users.set(j, tmp);

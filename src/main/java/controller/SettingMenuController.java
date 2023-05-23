@@ -31,7 +31,15 @@ public class SettingMenuController {
         return CurrentGame.isMuteSong();
     }
 
-    public void setMuteAndUnMute(boolean muteAndUnMute) {
+    public static void setMuteAndUnMute(boolean muteAndUnMute) {
         CurrentGame.setMuteSong(muteAndUnMute);
+    }
+
+    public void setNumberOfDefaultBalls(int numberOfDefaultBalls) {
+        CurrentGame.setNumberOfDefaultBalls(numberOfDefaultBalls);
+    }
+
+    public int getNumberOfDefaultBalls() {
+        return CurrentGame.getNumberOfDefaultBalls();
     }
 }

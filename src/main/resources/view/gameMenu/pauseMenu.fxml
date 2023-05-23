@@ -11,10 +11,22 @@
             fx:controller="view.gameMenu.GameMenu"
             prefHeight="600.0" prefWidth="400.0">
     <center>
-        <VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" spacing="20">
-            <Button text="Resume" prefWidth="120" onMouseClicked="#resume" fx:id="resumeButton"/>
-            <Button text="Save Game" prefWidth="120" onMouseClicked="#saveGameAndExit"/>
-            <Button text="End Game" prefWidth="120" onMouseClicked="#exit"/>
+        <VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" spacing="20" focusTraversable="false">
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Resume" prefWidth="120" onMouseClicked="#resume" fx:id="resumeButton"/>
+                <Button text="Save Game" prefWidth="120" onMouseClicked="#saveGameAndExit"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Change Music" prefWidth="120" onMouseClicked="#changeMusic"/>
+                <Button text="Mute Music" prefWidth="120" onMouseClicked="#muteMusic"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Button Guide" prefWidth="120" onMouseClicked="#buttonGuide"/>
+                <Button text="Restart" prefWidth="120" onMouseClicked="#restart"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="End Game" prefWidth="120" onMouseClicked="#exit"/>
+            </HBox>
         </VBox>
     </center>
 </BorderPane>

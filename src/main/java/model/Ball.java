@@ -24,4 +24,7 @@ public class Ball extends Circle {
 //            }
 //        });
     }
+    public Ball(double xCenter, double yCenter) {
+        super(xCenter, yCenter, 10);
+    }
 }

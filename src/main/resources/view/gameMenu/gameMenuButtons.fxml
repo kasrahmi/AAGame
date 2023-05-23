@@ -14,4 +14,7 @@
     <top>
         <ProgressBar fx:id="progressBar" progress="0.0" focusTraversable="false"/>
     </top>
+    <left>
+        <Label text="Seconds : 0" fx:id="timePassed" focusTraversable="false"/>
+    </left>
 </BorderPane>

@@ -28,7 +28,7 @@ public class GameMenuController {
     public static ArrayList<Group> groups = new ArrayList<>();
     public static ArrayList<Line> lines = new ArrayList<>();
     public static int numberOfBalls;
-    public static RotateAnimation rotateAnimation = new RotateAnimation();
+    public static RotateAnimation rotateAnimation;
     public static ShootingBall shootingBall;
 
     public static void rotationBalls(Ball ball, Text text) {
@@ -44,13 +44,22 @@ public class GameMenuController {
 
         makeGroups(ball, line, text);
 
-        rotateAnimation.play();
         for (Ball ball1 : GameMenuController.balls) {
             if (checkBallsCrashed.twoBallsCrashed(ball, ball1)) {
                 GameMenu.loseTheGame();
                 return;
             }
         }
+        if (GameMenuController.numberOfBalls == 0) {
+            GameMenu.borderPane.getChildren().remove(GameMenu.ball);
+            GameMenu.borderPane.getChildren().remove(GameMenu.numberOfBall);
+            try {
+                GameMenu.moveToNextPhase();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         balls.add(ball);
     }
 
@@ -58,6 +67,20 @@ public class GameMenuController {
         Group group = new Group(ball, line, text);
         groups.add(group);
         GameMenu.borderPane.getChildren().add(0, group);
+    }
+
+    public static void rotationBalls(Ball ball, Rotate rotation) {
+        Rotate rotate = new Rotate((-1)*rotateAnimation.getRotate().getAngle(), 300, 250);
+        ball.getTransforms().addAll(rotateAnimation.getRotate(), rotate);
+
+        Line line = new Line(ball.getCenterX(), ball.getCenterY(), 300, 250);
+        line.setStrokeWidth(2);
+        line.getTransforms().addAll(rotate, rotateAnimation.getRotate(), rotation);
+        GameMenu.borderPane.getChildren().add(0, line);
+        lines.add(line);
+
+        makeGroups(ball, line, new Text(""));
+        balls.add(ball);
     }
 
     public void freeze() {
@@ -74,7 +97,7 @@ public class GameMenuController {
 //        text.setTranslateX(300); text.setTranslateY(250);
         text.setFont(Font.font(10));
         text.setFill(Color.WHITE);
-        Ball newBall = new Ball();
+        Ball newBall = new Ball(GameMenu.ball.getCenterX(), GameMenu.ball.getCenterY());
 //        Line line = new Line(newBall.getCenterX(), newBall.getCenterY() - 15, 300, 250);
 //        line.setStrokeWidth(10);
         GameMenu.borderPane.getChildren().addAll(newBall, text);
@@ -90,5 +113,17 @@ public class GameMenuController {
 
     public int getNumberOfBalls() {
         return numberOfBalls;
+    }
+
+    public void moveBallLeft() {
+        double x = GameMenu.ball.getCenterX() - 10;
+        if (x > 10)
+            GameMenu.ball.setCenterX(x);
+    }
+
+    public void moveBallRight() {
+        double x = GameMenu.ball.getCenterX() + 10;
+        if (x < 590)
+            GameMenu.ball.setCenterX(x);
     }
 }

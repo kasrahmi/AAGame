@@ -8,6 +8,8 @@ public class CurrentGame {
     private static boolean darkMode = false;
     private static boolean muteSong = false;
     private static int phase = 1;
+    private static int numberOfDefaultBalls = 5;
+    private static int songNumber = 1;
 
     public static User getLoggedInUser() {
         return loggedInUser;
@@ -63,5 +65,21 @@ public class CurrentGame {
 
     public static void setPhase(int phase) {
         CurrentGame.phase = phase;
+    }
+
+    public static void setNumberOfDefaultBalls(int numberOfDefaultBalls) {
+        CurrentGame.numberOfDefaultBalls = numberOfDefaultBalls;
+    }
+
+    public static int getNumberOfDefaultBalls() {
+        return CurrentGame.numberOfDefaultBalls;
+    }
+
+    public static int getSongNumber() {
+        return songNumber;
+    }
+
+    public static void setSongNumber(int songNumber) {
+        CurrentGame.songNumber = songNumber;
     }
 }

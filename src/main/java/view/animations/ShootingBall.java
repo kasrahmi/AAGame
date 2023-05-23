@@ -34,22 +34,16 @@ public class ShootingBall extends Transition {
     @Override
     protected void interpolate(double v) {
         double y = ball.getCenterY() - 10;
-        double x = ball.getCenterX() - CurrentGame.getDifficulty().getWindSpeed();
+        double x = ball.getCenterX() - CurrentGame.getDifficulty().getWindSpeed() * 4;
 
         if (y <= 10) pane.getChildren().remove(ball);
         if (x <= 10 || x >= 590) pane.getChildren().remove(ball);
-        if (getDistanceFromCenterOfTheCircle(x, y) <= 200) {
+        if (getDistanceFromCenterOfTheCircle(x, y) <= 200 && (!text.getText().equals(""))) {
             GameMenuController.rotationBalls(ball, text);
-            if (GameMenuController.numberOfBalls == 0) {
-                GameMenu.borderPane.getChildren().remove(GameMenu.ball);
-                GameMenu.borderPane.getChildren().remove(GameMenu.numberOfBall);
-                try {
-                    GameMenu.moveToNextPhase();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
             GameMenuController.shootingBall = null;
+            this.stop();
+        } else if (getDistanceFromCenterOfTheCircle(x, y) <= 200 && (text.getText().equals(""))) {
+            GameMenuController.rotationBalls(ball, text);
             this.stop();
         }
 

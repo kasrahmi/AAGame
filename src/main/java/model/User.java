@@ -9,7 +9,7 @@ public class User {
     private int scoreMedium;
     private int scoreHard;
     private int level;
-    private int time;
+    private double time;
     private String pathAvatar;
     public User(String username, String password, String email, String pathAvatar) {
         this.username = username;
@@ -64,11 +64,11 @@ public class User {
         this.level++;
     }
 
-    public int getTime() {
+    public double getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(double time) {
         this.time = time;
     }
 
@@ -107,8 +107,11 @@ public class User {
             this.scoreHard = scoreHard;
     }
 
-    public void setScore(int score) {
-        if (score > this.highScore) setHighScore(score);
+    public void setScore(int score, double time) {
+        if (score > this.highScore) {
+            setHighScore(score);
+            setTime(time);
+        }
         if (CurrentGame.getDifficulty().difficulty.equals("easy")) setScoreEasy(score);
         else if (CurrentGame.getDifficulty().difficulty.equals("medium")) setScoreMedium(score);
         else setScoreHard(score);

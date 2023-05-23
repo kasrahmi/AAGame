@@ -24,7 +24,7 @@ import java.util.List;
 public class ChangeNumberOfBalls extends Application {
 
     public static Stage stage;
-    public ArrayList<Integer> numberOfBalls = new ArrayList<>(List.of(18,19,20,21));
+    public ArrayList<Integer> numberOfBalls = new ArrayList<>(List.of(5,15,18,20,22));
     public ArrayList<CheckBox> checkBoxes = new ArrayList<>();
     public SettingMenuController controller = new SettingMenuController();
     @Override
