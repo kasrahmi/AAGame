@@ -40,6 +40,16 @@ public class ShootingBall extends Transition {
         if (x <= 10 || x >= 590) pane.getChildren().remove(ball);
         if (getDistanceFromCenterOfTheCircle(x, y) <= 200) {
             GameMenuController.rotationBalls(ball, text);
+            if (GameMenuController.numberOfBalls == 0) {
+                GameMenu.borderPane.getChildren().remove(GameMenu.ball);
+                GameMenu.borderPane.getChildren().remove(GameMenu.numberOfBall);
+                try {
+                    GameMenu.moveToNextPhase();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            GameMenuController.shootingBall = null;
             this.stop();
         }
 

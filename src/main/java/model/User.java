@@ -112,6 +112,7 @@ public class User {
         if (CurrentGame.getDifficulty().difficulty.equals("easy")) setScoreEasy(score);
         else if (CurrentGame.getDifficulty().difficulty.equals("medium")) setScoreMedium(score);
         else setScoreHard(score);
+        Database.saveUsers();
     }
 
     @Override

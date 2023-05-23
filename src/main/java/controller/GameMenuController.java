@@ -29,6 +29,7 @@ public class GameMenuController {
     public static ArrayList<Line> lines = new ArrayList<>();
     public static int numberOfBalls;
     public static RotateAnimation rotateAnimation = new RotateAnimation();
+    public static ShootingBall shootingBall;
 
     public static void rotationBalls(Ball ball, Text text) {
         Rotate rotate = new Rotate((-1)*rotateAnimation.getRotate().getAngle(), 300, 250);
@@ -60,7 +61,7 @@ public class GameMenuController {
     }
 
     public void freeze() {
-        rotateAnimation.setAngeleRotate(0.5);
+        rotateAnimation.setAngeleRotate(CurrentGame.getDifficulty().getRotateAngle() * 0.4);
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(CurrentGame.getDifficulty().getFreezeTime()),
                 actionEvent -> rotateAnimation.setAngeleRotate(CurrentGame.getDifficulty().getRotateAngle())));
         timeline.setCycleCount(0);
@@ -77,9 +78,10 @@ public class GameMenuController {
 //        Line line = new Line(newBall.getCenterX(), newBall.getCenterY() - 15, 300, 250);
 //        line.setStrokeWidth(10);
         GameMenu.borderPane.getChildren().addAll(newBall, text);
-        ShootingBall shootingBall = new ShootingBall(newBall, text);
-        shootingBall.play();
         numberOfBalls--;
+        ShootingBall shootingBall = new ShootingBall(newBall, text);
+        GameMenuController.shootingBall = shootingBall;
+        shootingBall.play();
     }
 
     public void getNumberOfBallsEachPhase() {

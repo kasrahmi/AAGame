@@ -6,13 +6,17 @@ import controller.utils.checkBallsCrashed;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -23,10 +27,12 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Ball;
 import model.CurrentGame;
+import model.Database;
 import model.MainCircle;
 import view.loginMenu.LoginMenu;
 import view.mainMenu.MainMenu;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -36,16 +42,23 @@ public class GameMenu extends Application {
     private static controller.GameMenuController controller = new controller.GameMenuController();
     private static Scene scene;
     public static MainCircle mainCircle;
-    public Text numberOfBall = new Text();
+    public static Text numberOfBall = new Text();
     static ArrayList<Ball> ballsGotBigger = new ArrayList<>();
     static Timeline changeRadiusTimeline = new Timeline();
     static Timeline reverseTimeLine = new Timeline();
     static Timeline invisbleTimeLine = new Timeline();
+    static BorderPane pausePane = new BorderPane();
+    public static Ball ball = new Ball();
+    public Button resumeButton = new Button();
+
     @Override
     public void start(Stage stage) throws Exception {
         GameMenu.stage = stage;
 
 
+        invisbleTimeLine = new Timeline();
+        reverseTimeLine = new Timeline();
+        changeRadiusTimeline = new Timeline();
 //        borderPane.getChildren().removeAll(GameMenuController.timelines);
 //        GameMenuController.balls.clear();
 //        GameMenuController.timelines.clear();
@@ -63,6 +76,10 @@ public class GameMenu extends Application {
                 break;
             }
         }
+
+        URL urlPause = LoginMenu.class.getResource("/view/gameMenu/pauseMenu.fxml");
+        GameMenu.pausePane = FXMLLoader.load(urlPause);
+
         borderPane.getChildren().removeAll(GameMenuController.balls);
         borderPane.getChildren().removeAll(GameMenuController.lines);
 
@@ -84,8 +101,8 @@ public class GameMenu extends Application {
             changeBallSize();
             if (CurrentGame.getPhase() == 3) invisibleTimeLineMaker();
         }
-
         controller.getNumberOfBallsEachPhase();
+
         Ball ball = createBallHandler();
 
         numberOfBall.setX(310);
@@ -194,21 +211,14 @@ public class GameMenu extends Application {
         GameMenuController.rotateAnimation.setAngeleRotate((-1) * GameMenuController.rotateAnimation.getAngeleRotate());
     }
 
-    public void back(MouseEvent mouseEvent) throws Exception {
-        new MainMenu().start(GameMenu.stage);
-    }
+//    public void back(MouseEvent mouseEvent) throws Exception {
+//        new MainMenu().start(GameMenu.stage);
+//    }
 
     public Ball createBallHandler() {
         Ball ball = new Ball();
+        GameMenu.ball = ball;
         ball.requestFocus();
-        if (GameMenuController.numberOfBalls == CurrentGame.getNumberOfBalls()) {
-            for (int i = 0; i < borderPane.getChildren().size(); i++) {
-                if (borderPane.getChildren().get(i) instanceof Line) {
-                    borderPane.getChildren().remove(borderPane.getChildren().get(i));
-                    i--;
-                }
-            }
-        }
         ball.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -219,32 +229,48 @@ public class GameMenu extends Application {
                     ball.requestFocus();
                 }
                 else if (keyName.equals("Space")) {
-                    if (controller.getNumberOfBalls() > -1) {
-                        if (GameMenuController.numberOfBalls == 0) {
-                            borderPane.getChildren().remove(ball);
-                            borderPane.getChildren().remove(numberOfBall);
-                            try {
-                                moveToNextPhase();
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
-                            }
+                    if (controller.getNumberOfBalls() >= 0) {
+//                        if (GameMenuController.numberOfBalls == 0) {
+//                            borderPane.getChildren().remove(ball);
+//                            borderPane.getChildren().remove(numberOfBall);
+//                            try {
+//                                moveToNextPhase();
+//                            } catch (Exception e) {
+//                                throw new RuntimeException(e);
+//                            }
+//                        }
+                        if (controller.getNumberOfBalls() != 0) {
+                            controller.shotBall();
+                            numberOfBall.setText(String.valueOf(GameMenuController.numberOfBalls));
                         }
-                        controller.shotBall();
-                        numberOfBall.setText(String.valueOf(GameMenuController.numberOfBalls));
                     }
-                }
+                } else if (keyName.equals("Ctrl")) pause();
             }
         });
         return ball;
     }
 
-    private void moveToNextPhase() throws Exception {
+    public static void moveToNextPhase() {
         invisbleTimeLine.stop();
         reverseTimeLine.stop();
         changeRadiusTimeline.stop();
-        GameMenuController.rotateAnimation.setAngeleRotate(CurrentGame.getDifficulty().getRotateAngle());
-        CurrentGame.setPhase(CurrentGame.getPhase() + 1);
-        new GameMenu().start(GameMenu.stage);
+        GameMenuController.rotateAnimation.stop();
+        borderPane.setStyle("-fx-background-color: #32cd32;");
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(3), new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        GameMenuController.rotateAnimation.setAngeleRotate(CurrentGame.getDifficulty().getRotateAngle());
+                        CurrentGame.setPhase(CurrentGame.getPhase() + 1);
+                        try {
+                            new GameMenu().start(GameMenu.stage);
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }));
+        timeline.setCycleCount(0);
+        timeline.play();
     }
 
     public static void loseTheGame() {
@@ -254,12 +280,16 @@ public class GameMenu extends Application {
         text.setTranslateX(270);
         text.setTranslateY(500);
         text.setFont(Font.font(20));
+        borderPane.setStyle("-fx-background-color: #8b0000;");
         GameMenuController.rotateAnimation.stop();
         ballsGotBigger.clear();
         invisbleTimeLine.stop();
         reverseTimeLine.stop();
         changeRadiusTimeline.stop();
-        if (CurrentGame.getLoggedInUser() != null) CurrentGame.getLoggedInUser().setHighScore(scoreCalculator());
+        invisbleTimeLine = null;
+        reverseTimeLine = null;
+        changeRadiusTimeline = null;
+        if (CurrentGame.getLoggedInUser() != null) CurrentGame.getLoggedInUser().setScore(scoreCalculator());
         CurrentGame.setPhase(1);
         GameMenu.scene.setOnKeyPressed((new EventHandler<KeyEvent>() {
             @Override
@@ -290,5 +320,43 @@ public class GameMenu extends Application {
 
     private double getRandomTime() {
         return Math.random() * 4;
+    }
+
+    public void pause() {
+        invisbleTimeLine.stop();
+        reverseTimeLine.stop();
+        changeRadiusTimeline.stop();
+        Button button = new Button();
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                resume();
+            }
+        });
+        button.setVisible(true);
+        borderPane.getChildren().add(button);
+        button.requestFocus();
+        GameMenuController.rotateAnimation.pause();
+        if (GameMenuController.shootingBall != null) GameMenuController.shootingBall.pause();
+        borderPane.setCenter(pausePane);
+    }
+
+    public void resume() {
+        borderPane.getChildren().remove(pausePane);
+        invisbleTimeLine.play();
+        reverseTimeLine.play();
+        changeRadiusTimeline.play();
+        GameMenuController.rotateAnimation.play();
+        if (GameMenuController.shootingBall != null) GameMenuController.shootingBall.play();
+        ball.requestFocus();
+    }
+
+    public void saveGameAndExit() throws Exception {
+        //TODO save map
+        exit();
+    }
+
+    public void exit() throws Exception {
+        new MainMenu().start(GameMenu.stage);
     }
 }

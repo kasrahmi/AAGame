@@ -11,8 +11,8 @@
             fx:controller="view.gameMenu.GameMenu"
             prefHeight="800.0" prefWidth="600.0">
     <top>
-        <HBox alignment="CENTER_LEFT">
-            <Button prefWidth="120" text="back" focusTraversable="false" onMouseClicked="#back"/>
-        </HBox>
+<!--        <HBox alignment="CENTER_LEFT">-->
+<!--            <Button prefWidth="120" text="pause" focusTraversable="false" onMouseClicked="#pause"/>-->
+<!--        </HBox>-->
     </top>
 </BorderPane>
