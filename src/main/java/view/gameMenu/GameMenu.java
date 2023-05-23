@@ -10,15 +10,16 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
@@ -50,6 +51,8 @@ public class GameMenu extends Application {
     static BorderPane pausePane = new BorderPane();
     public static Ball ball = new Ball();
     public Button resumeButton = new Button();
+    public Text score;
+    public ProgressBar progressBar;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -68,6 +71,13 @@ public class GameMenu extends Application {
 
         url = LoginMenu.class.getResource("/view/gameMenu/gameMenuButtons.fxml");
         BorderPane borderPane = FXMLLoader.load(url);
+
+        progressBar = new ProgressBar(0);
+        progressBar.setFocusTraversable(false);
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER_RIGHT);
+        vBox.setFocusTraversable(false);
+        vBox.getChildren().add(progressBar);
 
         GameMenu.borderPane = borderPane;
         for (Node child : borderPane.getChildren()) {
@@ -105,11 +115,20 @@ public class GameMenu extends Application {
 
         Ball ball = createBallHandler();
 
+        score = new Text();
+        borderPane.getChildren().add(score);
+        score.setY(15);
+        score.setX(20);
+        score.setStrokeWidth(20);
+        score.setText("0");
+
+
         numberOfBall.setX(310);
         numberOfBall.setY(600);
         numberOfBall.setText(String.valueOf(GameMenuController.numberOfBalls));
         numberOfBall.setFill(Color.WHITE);
 
+        borderPane.setTop(vBox);
         borderPane.getChildren().addAll(mainCircle, text, numberOfBall, ball);
         pane.getChildren().add(borderPane);
         Scene scene = new Scene(pane);
@@ -225,29 +244,31 @@ public class GameMenu extends Application {
                 String keyName = keyEvent.getCode().getName();
 
                 if (keyName.equals("Tab")) {
-                    controller.freeze();
+                    if (progressBar.getProgress() == 1.0) {
+                        controller.freeze();
+                        progressBar.setProgress(0.0);
+                    }
                     ball.requestFocus();
                 }
                 else if (keyName.equals("Space")) {
                     if (controller.getNumberOfBalls() >= 0) {
-//                        if (GameMenuController.numberOfBalls == 0) {
-//                            borderPane.getChildren().remove(ball);
-//                            borderPane.getChildren().remove(numberOfBall);
-//                            try {
-//                                moveToNextPhase();
-//                            } catch (Exception e) {
-//                                throw new RuntimeException(e);
-//                            }
-//                        }
+                        chargeFreeze();
                         if (controller.getNumberOfBalls() != 0) {
                             controller.shotBall();
                             numberOfBall.setText(String.valueOf(GameMenuController.numberOfBalls));
+                            score.setText(String.valueOf(scoreCalculator()));
                         }
                     }
                 } else if (keyName.equals("Ctrl")) pause();
             }
         });
         return ball;
+    }
+
+    private void chargeFreeze() {
+        if (progressBar.getProgress() != 1.0) {
+            progressBar.setProgress(progressBar.getProgress() + 0.2);
+        }
     }
 
     public static void moveToNextPhase() {
@@ -283,12 +304,12 @@ public class GameMenu extends Application {
         borderPane.setStyle("-fx-background-color: #8b0000;");
         GameMenuController.rotateAnimation.stop();
         ballsGotBigger.clear();
-        invisbleTimeLine.stop();
-        reverseTimeLine.stop();
-        changeRadiusTimeline.stop();
-        invisbleTimeLine = null;
-        reverseTimeLine = null;
-        changeRadiusTimeline = null;
+        GameMenu.invisbleTimeLine.stop();
+        GameMenu.reverseTimeLine.stop();
+        GameMenu.changeRadiusTimeline.stop();
+        GameMenu.invisbleTimeLine = new Timeline();
+        GameMenu.reverseTimeLine = new Timeline();
+        GameMenu.changeRadiusTimeline = new Timeline();
         if (CurrentGame.getLoggedInUser() != null) CurrentGame.getLoggedInUser().setScore(scoreCalculator());
         CurrentGame.setPhase(1);
         GameMenu.scene.setOnKeyPressed((new EventHandler<KeyEvent>() {
