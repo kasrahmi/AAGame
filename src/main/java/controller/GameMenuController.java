@@ -3,9 +3,7 @@ package controller;
 import controller.utils.checkBallsCrashed;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
@@ -18,7 +16,6 @@ import view.animations.RotateAnimation;
 import view.animations.ShootingBall;
 import view.gameMenu.GameMenu;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class GameMenuController {
@@ -46,7 +43,7 @@ public class GameMenuController {
 
         for (Ball ball1 : GameMenuController.balls) {
             if (checkBallsCrashed.twoBallsCrashed(ball, ball1)) {
-                GameMenu.loseTheGame();
+                GameMenu.winOrLoosGame(false);
                 return;
             }
         }
@@ -86,7 +83,10 @@ public class GameMenuController {
     public void freeze() {
         rotateAnimation.setAngeleRotate(CurrentGame.getDifficulty().getRotateAngle() * 0.4);
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(CurrentGame.getDifficulty().getFreezeTime()),
-                actionEvent -> rotateAnimation.setAngeleRotate(CurrentGame.getDifficulty().getRotateAngle())));
+                actionEvent -> {
+            rotateAnimation.setAngeleRotate(CurrentGame.getDifficulty().getRotateAngle());
+            GameMenu.borderPane.setStyle("-fx-background-color: #6495ED;");
+                }));
         timeline.setCycleCount(0);
         timeline.play();
     }

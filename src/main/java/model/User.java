@@ -1,5 +1,7 @@
 package model;
 
+import javafx.scene.input.KeyCode;
+
 public class User {
     private String username;
     private String password;

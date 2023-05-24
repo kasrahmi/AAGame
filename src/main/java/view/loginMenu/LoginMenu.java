@@ -4,6 +4,7 @@ import controller.SettingMenuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -19,6 +20,7 @@ public class LoginMenu extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         LoginMenu.stage = stage;
+        stage.getIcons().add(new Image(LoginMenu.class.getResource("/images/icon.png").toURI().toString()));
 
         URL url = LoginMenu.class.getResource("/view/loginMenu/loginMenu.fxml");
         Pane pane = FXMLLoader.load(url);

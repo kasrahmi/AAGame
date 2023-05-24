@@ -27,7 +27,7 @@ public class ScoreBoardMenu extends Application {
         URL url = LoginMenu.class.getResource("/view/scoreBoardMenu/scoreBoard.fxml");
         Pane pane = FXMLLoader.load(url);
 
-        url = LoginMenu.class.getResource("/view/scoreBoardMenu/scoreBoardText.fxml");
+        url = LoginMenu.class.getResource("/view/scoreBoardMenu/score.fxml");
         BorderPane borderPane = FXMLLoader.load(url);
 
         VBox vBox = new VBox();

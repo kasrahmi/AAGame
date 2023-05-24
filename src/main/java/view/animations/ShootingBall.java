@@ -8,6 +8,8 @@ import javafx.animation.Transition;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
@@ -30,14 +32,30 @@ public class ShootingBall extends Transition {
         this.text = text;
         this.setCycleDuration(Duration.millis(1000));
         this.setCycleCount(-1);
+        soundEffect();
     }
+
+    private void soundEffect() {
+        if (!CurrentGame.isMuteSong()) {
+            Media media = new Media(getClass().getResource("/sounds/shooting.wav").toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.play();
+        }
+    }
+
     @Override
     protected void interpolate(double v) {
         double y = ball.getCenterY() - 10;
-        double x = ball.getCenterX() - CurrentGame.getDifficulty().getWindSpeed() * 4;
+        double x = ball.getCenterX() + GameMenu.wind;
 
-        if (y <= 10) pane.getChildren().remove(ball);
-        if (x <= 10 || x >= 590) pane.getChildren().remove(ball);
+        if (y <= 10) {
+            pane.getChildren().remove(ball);
+            GameMenu.winOrLoosGame(false);
+        }
+        if (x <= 10 || x >= 590) {
+            pane.getChildren().remove(ball);
+            GameMenu.winOrLoosGame(false);
+        }
         if (getDistanceFromCenterOfTheCircle(x, y) <= 200 && (!text.getText().equals(""))) {
             GameMenuController.rotationBalls(ball, text);
             GameMenuController.shootingBall = null;

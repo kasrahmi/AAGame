@@ -42,7 +42,7 @@ public class SettingMenuController {
         new ChangeDifficulty().start(SettingMenu.stage);
     }
 
-    public void changePlayingButton(MouseEvent actionEvent) {
-
+    public void changePlayingButton(MouseEvent actionEvent) throws Exception {
+        new ChangeKeyBinds().start(SettingMenu.stage);
     }
 }

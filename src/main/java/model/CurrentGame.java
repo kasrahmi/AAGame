@@ -1,5 +1,7 @@
 package model;
 
+import javafx.scene.input.KeyCode;
+
 public class CurrentGame {
     private static User loggedInUser;
     private static boolean guestMode;
@@ -10,6 +12,9 @@ public class CurrentGame {
     private static int phase = 1;
     private static int numberOfDefaultBalls = 5;
     private static int songNumber = 1;
+    private static KeyCode shoot = KeyCode.SPACE;
+    private static KeyCode freeze = KeyCode.TAB;
+    private static KeyCode pause = KeyCode.CONTROL;
 
     public static User getLoggedInUser() {
         return loggedInUser;
@@ -81,5 +86,35 @@ public class CurrentGame {
 
     public static void setSongNumber(int songNumber) {
         CurrentGame.songNumber = songNumber;
+    }
+
+    public static KeyCode getShoot() {
+        return shoot;
+    }
+
+    public static void setShoot(KeyCode shoot) {
+        CurrentGame.shoot = shoot;
+    }
+
+    public static KeyCode getFreeze() {
+        return freeze;
+    }
+
+    public static void setFreeze(KeyCode freeze) {
+        CurrentGame.freeze = freeze;
+    }
+
+    public static KeyCode getPause() {
+        return pause;
+    }
+
+    public static void setPause(KeyCode pause) {
+        CurrentGame.pause = pause;
+    }
+
+    public static String getKeyBinds() {
+        return "Shooting : " + getShoot().getName() +
+                "\nFreeze : " + getFreeze().getName() +
+                "\nPause : " + getPause().getName();
     }
 }
