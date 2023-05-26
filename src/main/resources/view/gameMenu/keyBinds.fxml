@@ -9,8 +9,8 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="view.gameMenu.GameMenu"
-            style="-fx-background-color: #eeeeee;"
-            prefHeight="400.0" prefWidth="400.0">
+            style="-fx-background-color: #808080;"
+            prefHeight="800.0" prefWidth="600.0">
     <top>
         <HBox alignment="CENTER_LEFT">
             <Button text="back" onMouseClicked="#back"/>

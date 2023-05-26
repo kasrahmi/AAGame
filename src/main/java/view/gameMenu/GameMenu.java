@@ -43,6 +43,7 @@ import java.util.TimerTask;
 
 public class GameMenu extends Application {
     private static Stage stage;
+    public static Pane pane;
     public static BorderPane borderPane;
     private static controller.GameMenuController controller = new controller.GameMenuController();
     private static Scene scene;
@@ -187,6 +188,7 @@ public class GameMenu extends Application {
             borderPane.getChildren().add(defaultBall);
         }
         borderPane.getChildren().add(ball);
+        GameMenu.pane = pane;
         pane.getChildren().add(borderPane);
         Scene scene = new Scene(pane);
 
@@ -530,7 +532,7 @@ public class GameMenu extends Application {
         Text text = new Text(CurrentGame.getKeyBinds());
         text.setX(280); text.setY(380);
         GameMenu.bindsPane.setCenter(text);
-        GameMenu.borderPane.setCenter(GameMenu.bindsPane);
+        GameMenu.pane.getChildren().add(GameMenu.bindsPane);
     }
 
     public void restart(MouseEvent mouseEvent) {
@@ -538,7 +540,7 @@ public class GameMenu extends Application {
     }
 
     public void back(MouseEvent mouseEvent) {
-        GameMenu.borderPane.getChildren().remove(GameMenu.bindsPane);
+        GameMenu.pane.getChildren().remove(GameMenu.bindsPane);
         GameMenu.borderPane.setCenter(pausePane);
     }
 }
