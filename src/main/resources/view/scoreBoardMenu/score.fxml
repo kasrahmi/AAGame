@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="view.mainMenu.scoreBoardMenu.ScoreBoardMenuController"
+            prefHeight="800.0" prefWidth="600.0">
+    <!--            stylesheets="@../../styles/menusStyle.css"-->
+    <top>
+        <HBox alignment="CENTER_LEFT">
+            <Button prefWidth="120" text="back" onMouseClicked="#back"/>
+        </HBox>
+    </top>
+    <left>
+        <VBox spacing="10" alignment="CENTER">
+            <CheckBox text="easy" prefWidth="120" fx:id="easy" onAction="#handleCheckboxAction"/>
+            <CheckBox text="medium" prefWidth="120" fx:id="medium" onAction="#handleCheckboxAction"/>
+            <CheckBox text="hard" prefWidth="120" fx:id="hard" onAction="#handleCheckboxAction"/>
+            <CheckBox text="high score" prefWidth="120" fx:id="highScore" onAction="#handleCheckboxAction"/>
+        </VBox>
+    </left>
+</BorderPane>
