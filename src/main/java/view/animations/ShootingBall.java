@@ -26,6 +26,7 @@ public class ShootingBall extends Transition {
     Pane pane;
     Ball ball;
     Text text;
+
     public ShootingBall(Ball ball, Text text) {
         pane = GameMenu.borderPane;
         this.ball = ball;
@@ -77,65 +78,4 @@ public class ShootingBall extends Transition {
         return Math.sqrt(Math.pow(x - 300, 2) + Math.pow(y - 250, 2));
     }
 
-//    private boolean twoBallsCrashed(Ball ball1, Ball ball2) {
-//        Point2D point2DFirstBall = ball1.localToScene(ball1.getCenterX(), ball1.getCenterY());
-//        Point2D point2DSecondBall = ball2.localToScene(ball2.getCenterX(), ball2.getCenterY());
-//        return Math.sqrt(Math.pow(point2DFirstBall.getX() - point2DSecondBall.getX(), 2) +
-//                Math.pow(point2DFirstBall.getY() - point2DSecondBall.getY(), 2)) < ball1.getRadius() + ball2.getRadius();
-//    }
-
-//    public void rotationBalls() {
-//        Rotate rotate = new Rotate(0, 300, 250);
-//        ball.getTransforms().add(rotate);
-////        System.out.println(text.getBoundsInLocal().getWidth());
-////        Bounds textBounds = text.getBoundsInParent();
-////        Rotate rotateText = new Rotate(0, GameMenu.mainCircle.getCenterX() - 300, GameMenu.mainCircle.getCenterY() - 250);
-//        text.getTransforms().add(rotate);
-////        addLine(rotate);
-//        Timeline timelineNormal = new Timeline(
-//                new KeyFrame(Duration.millis(CurrentGame.getDifficulty().getRotationTime()), new KeyValue(rotate.angleProperty(), 360)));
-//                new KeyFrame(Duration.millis(CurrentGame.getDifficulty().getRotationTime()), new KeyValue(rotate.angleProperty(), rotate.getAngle() - 360));
-//        Timeline textTimeline = new Timeline(
-//                new KeyFrame(Duration.millis(CurrentGame.getDifficulty().getRotationTime()), new KeyValue(rotate.angleProperty(), 360)));
-//        timelineNormal.setAutoReverse(true);
-//        textTimeline.setCycleCount(-1);
-//        textTimeline.play();
-//        GameMenuController.timelines.add(textTimeline);
-//        timelineNormal.setCycleCount(-1);
-//        timelineNormal.play();
-//        GameMenuController.timelines.add(timelineNormal);
-////        GameMenuController.reverseTimelines.add(reverseTimeLine);
-//        GameMenuController.balls.add(ball);
-//        for (Ball ball1 : GameMenuController.balls) {
-//            if (ball.getBoundsInParent().intersects(ball1.getBoundsInParent()) && !ball1.equals(ball)) {
-//                GameMenu.loseTheGame();
-//                return;
-//            }
-//        }
-//    }
-//
-//    private void addLine(Rotate rotate) {
-//        Line line = new Line(ball.getCenterX(), ball.getCenterY() - 15, 300, 250);
-//        line.setStrokeWidth(10);
-//        line.getTransforms().add(rotate);
-//        pane.getChildren().add(0, line);
-//    }
-
-//    public void rotationBalls() {
-//        Rotate rotate = new Rotate(0, 300, 250);
-//        ball.getTransforms().add(rotate);
-//        text.getTransforms().add(new Rotate(0, 300, 250)); // Create a new Rotate object for the text
-//        Timeline timelineNormal = new Timeline(
-//                new KeyFrame(Duration.millis(CurrentGame.getDifficulty().getRotationTime()), new KeyValue(rotate.angleProperty(), 360)));
-//        timelineNormal.setCycleCount(-1);
-//        timelineNormal.play();
-//        GameMenuController.timelines.add(timelineNormal);
-//        GameMenuController.balls.add(ball);
-//        for (Ball ball1 : GameMenuController.balls) {
-//            if (ball.getBoundsInParent().intersects(ball1.getBoundsInParent()) && !ball1(ball)) {
-//                GameMenu.loseTheGame();
-//                return;
-//            }
-//        }
-//    }
 }

@@ -9,22 +9,12 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
 public class Ball extends Circle {
-    public Ball() {
+    public Ball(Color color) {
         super(300, 600, 10);
-//        this.setFill(Color.BLACK);
-//        this.setOnKeyPressed(new EventHandler<KeyEvent>() {
-//            @Override
-//            public void handle(KeyEvent keyEvent) {
-//                String keyName = keyEvent.getCode().getName();
-//
-//                if (keyName.equals("Tab"))
-//                    GameMenuController.freeze();
-//                else if (keyName.equals("Space"))
-//                    GameMenuController.shotBall(Ball.this);
-//            }
-//        });
+        this.setFill(color);
     }
-    public Ball(double xCenter, double yCenter) {
+    public Ball(double xCenter, double yCenter, Color color) {
         super(xCenter, yCenter, 10);
+        this.setFill(color);
     }
 }

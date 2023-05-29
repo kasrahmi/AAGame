@@ -21,11 +21,6 @@ public class SignupMenu extends Application {
         URL url = LoginMenu.class.getResource("/view/signupMenu/signupMenu.fxml");
         Pane pane = FXMLLoader.load(url);
 
-//        ImageView background = new ImageView(new Image(ProfileMenu.class.getResource("/images/background.png").toString(), 800 ,600, false, false));
-//        ImageView background2 = new ImageView(new Image(ProfileMenu.class.getResource("/images/background.png").toString(), 800 ,600, false, false));
-//
-//        pane.getChildren().addAll(background, background2);
-
         url = LoginMenu.class.getResource("/view/signupMenu/signupMenuButtons.fxml");
         BorderPane borderPane = FXMLLoader.load(url);
 

@@ -55,7 +55,7 @@ public class GameMenu extends Application {
     static Timeline invisbleTimeLine = new Timeline();
     static BorderPane pausePane = new BorderPane();
     static BorderPane bindsPane = new BorderPane();
-    public static Ball ball = new Ball();
+    public static Ball ball = new Ball(Color.BLACK);
     public Button resumeButton = new Button();
     public Text score;
     public ProgressBar progressBar;
@@ -69,6 +69,7 @@ public class GameMenu extends Application {
     public static Timeline windTimeline = new Timeline();
     public Label keyBinds;
     Label windLabel;
+    public static boolean twoPlayer = false;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -221,7 +222,7 @@ public class GameMenu extends Application {
         GameMenuController.rotateAnimation.play();
         controller.getNumberOfBallsEachPhase();
         for (int i = 0; i < CurrentGame.getNumberOfDefaultBalls(); i++) {
-            Ball ball = new Ball();
+            Ball ball = new Ball(Color.BLACK);
             ball.setCenterX(300);
             ball.setCenterY(450);
             Rotate rotate = new Rotate(30 + (rotation * i), 300, 250);
@@ -324,7 +325,7 @@ public class GameMenu extends Application {
     }
 
     public Ball createBallHandler() {
-        Ball ball = new Ball();
+        Ball ball = new Ball(Color.BLACK);
         GameMenu.ball = ball;
         ball.requestFocus();
         ball.setOnKeyReleased(new EventHandler<KeyEvent>() {
@@ -350,14 +351,14 @@ public class GameMenu extends Application {
                         }
                     }
                 } else if (keyName.equals(CurrentGame.getPause())) pause();
-                else if (keyName.equals(KeyCode.LEFT) && CurrentGame.getPhase() == 4) controller.moveBallLeft();
-                else if (keyName.equals(KeyCode.RIGHT) && CurrentGame.getPhase() == 4) controller.moveBallRight();
+                else if (keyName.equals(KeyCode.LEFT) && CurrentGame.getPhase() == 4) controller.moveBallLeft(ball);
+                else if (keyName.equals(KeyCode.RIGHT) && CurrentGame.getPhase() == 4) controller.moveBallRight(ball);
             }
         });
         return ball;
     }
 
-    private void chargeFreeze() {
+    void chargeFreeze() {
         if (progressBar.getProgress() != 1.0) {
             progressBar.setProgress(progressBar.getProgress() + 0.2);
         }
@@ -382,7 +383,8 @@ public class GameMenu extends Application {
                         }
                         else {
                             try {
-                                new GameMenu().start(GameMenu.stage);
+                                if (twoPlayer) new GameMenuTwo().start(GameMenuTwo.stage);
+                                else new GameMenu().start(GameMenu.stage);
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
@@ -412,6 +414,7 @@ public class GameMenu extends Application {
             text.setFont(Font.font(20));
             borderPane.setStyle("-fx-background-color: #8b0000;");
         }
+        twoPlayer = false;
         GameMenuController.rotateAnimation.stop();
         ballsGotBigger.clear();
         GameMenu.invisbleTimeLine.stop();
@@ -442,7 +445,7 @@ public class GameMenu extends Application {
         borderPane.getChildren().add(text);
     }
 
-    private static int scoreCalculator() {
+    static int scoreCalculator() {
         int score = 0;
         for (int i = 0; i <= CurrentGame.getPhase(); i++) {
             if (i == CurrentGame.getPhase()) {
@@ -488,7 +491,7 @@ public class GameMenu extends Application {
         ball.requestFocus();
     }
 
-    private static void pauseTimer() {
+    static void pauseTimer() {
         timer.cancel();
     }
 

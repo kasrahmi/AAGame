@@ -4,6 +4,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import model.Database;
 import view.gameMenu.GameMenu;
+import view.gameMenu.GameMenuTwo;
 import view.loginMenu.LoginMenu;
 import view.mainMenu.profileMenu.ProfileMenu;
 import view.mainMenu.scoreBoardMenu.ScoreBoardMenu;
@@ -49,5 +50,9 @@ public class MainMenuController {
 
     public static String usernameCurrentUser() {
         return controller.getUsername();
+    }
+
+    public void twoPlayerGame(MouseEvent mouseEvent) throws Exception {
+        new GameMenuTwo().start(MainMenu.stage);
     }
 }

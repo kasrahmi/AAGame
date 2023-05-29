@@ -60,7 +60,7 @@ public class GameMenuController {
         balls.add(ball);
     }
 
-    private static void makeGroups(Ball ball, Line line, Text text) {
+    static void makeGroups(Ball ball, Line line, Text text) {
         Group group = new Group(ball, line, text);
         groups.add(group);
         GameMenu.borderPane.getChildren().add(0, group);
@@ -94,12 +94,9 @@ public class GameMenuController {
     public void shotBall() {
         Text text = new Text(String.valueOf(numberOfBalls));
         text.setX(300); text.setY(250);
-//        text.setTranslateX(300); text.setTranslateY(250);
         text.setFont(Font.font(10));
         text.setFill(Color.WHITE);
-        Ball newBall = new Ball(GameMenu.ball.getCenterX(), GameMenu.ball.getCenterY());
-//        Line line = new Line(newBall.getCenterX(), newBall.getCenterY() - 15, 300, 250);
-//        line.setStrokeWidth(10);
+        Ball newBall = new Ball(GameMenu.ball.getCenterX(), GameMenu.ball.getCenterY(), Color.BLACK);
         GameMenu.borderPane.getChildren().addAll(newBall, text);
         numberOfBalls--;
         ShootingBall shootingBall = new ShootingBall(newBall, text);
@@ -115,15 +112,15 @@ public class GameMenuController {
         return numberOfBalls;
     }
 
-    public void moveBallLeft() {
-        double x = GameMenu.ball.getCenterX() - 10;
+    public void moveBallLeft(Ball ball) {
+        double x = ball.getCenterX() - 10;
         if (x > 10)
-            GameMenu.ball.setCenterX(x);
+            ball.setCenterX(x);
     }
 
-    public void moveBallRight() {
-        double x = GameMenu.ball.getCenterX() + 10;
+    public void moveBallRight(Ball ball) {
+        double x = ball.getCenterX() + 10;
         if (x < 590)
-            GameMenu.ball.setCenterX(x);
+            ball.setCenterX(x);
     }
 }
