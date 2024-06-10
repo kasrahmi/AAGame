@@ -12,7 +12,6 @@ A recreation of the popular AA game using JavaFX, designed to work seamlessly on
 - [Features](#features)
 - [Technologies](#technologies)
 - [Contributing](#contributing)
-- [License](#license)
 - [Contact](#contact)
 
 ## Installation
