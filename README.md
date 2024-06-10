@@ -67,9 +67,9 @@ Main menu:
 
 Game :
 
-[Game1](https://github.com/kasrahmi/AAGame/assets/119696431/9491b8f2-337e-4e46-a7e3-764822cb3ddd)
+![Game1](https://github.com/kasrahmi/AAGame/assets/119696431/9491b8f2-337e-4e46-a7e3-764822cb3ddd)
 
-[Game2](https://github.com/kasrahmi/AAGame/assets/119696431/32cb9eca-914c-44ee-b1fa-ac8c988e7053)
+![Game2](https://github.com/kasrahmi/AAGame/assets/119696431/32cb9eca-914c-44ee-b1fa-ac8c988e7053)
 
 ## Technologies
 
