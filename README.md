@@ -8,46 +8,88 @@ A recreation of the popular AA game using JavaFX, designed to work seamlessly on
 
 - [Installation](#installation)
 - [Usage](#usage)
+- [Screenshots](#screenshots)
 - [Features](#features)
 - [Technologies](#technologies)
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
-- [Screenshots](#screenshots)
 
 ## Installation
 
 To set up the project locally, follow these steps:
 
-```bash
-# Clone the repository
-git clone https://github.com/kasrahmi/AAGame.git
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/kasrahmi/AAGame.git
+    ```
 
-# Navigate to the project directory
-cd AAGame
+2. Navigate to the project directory:
+    ```bash
+    cd AAGame
+    ```
 
-# Open the project in your IDE (e.g., IntelliJ IDEA)
-# Ensure you have JDK and JavaFX installed
+3. Open the project in your IDE (e.g., IntelliJ IDEA).
+
+4. Ensure you have JDK and JavaFX installed.
 
 ## Usage
 
-# Compile and run the project using your IDE or command line
-After compiling the project you need to go to ./src/main/java/view/mainMenu and run the MainMenu and the application start on your computer.
+To compile and run the project:
 
-## Screenshots
-
-Login menu :
-
-<img width="601" alt="Screenshot 2024-06-10 at 4 12 46 PM" src="https://github.com/kasrahmi/AAGame/assets/119696431/656d6ce8-30f2-456a-b4d0-eb29a25a393d">
-
+1. Compile the project in your IDE or using the command line.
+2. Navigate to `./src/main/java/view/mainMenu`.
+3. Run `MainMenu.java`.
+4. The application will start on your computer.
 
 
 
 ## Features
 
-Enhanced Gameplay: More features and levels compared to the original game.
-Optimized for Laptops: Improved controls and interface for laptop users.
-JavaFX Integration: Utilizes JavaFX for a smooth and interactive UI experience.
+- **Enhanced Gameplay:** More features and levels compared to the original game.
+- **Optimized for Laptops:** Improved controls and interface for laptop users.
+- **JavaFX Integration:** Utilizes JavaFX for a smooth and interactive UI experience.
+- **Different Phases:** 1: Normal one/ 2: Change the direction of the spin randomely/ 3: Disappearing balls on the circle/ 4: Add the wind and can change shooting place of the ball
+- **Enter as Guest:** You can enter the game without registeration.
+- **Profile Menu:** Which have different ways to make profile and it is disable for the guests.
+- **Score Board:** Have an special Score boards for different levels.
+- **2 Player Game:** Fun mode which you can play with your friend which one of you shoot from the top and other from the bottom and you should help each other to win the game.
 
+## Screenshots
 
+Login menu:
 
+![Login menu](https://github.com/kasrahmi/AAGame/assets/119696431/656d6ce8-30f2-456a-b4d0-eb29a25a393d)
+
+Main menu:
+
+![Main menu](https://github.com/kasrahmi/AAGame/assets/119696431/9ef4f219-ef21-4b95-9588-2530ac9b783d)
+
+Game :
+
+[Game1](https://github.com/kasrahmi/AAGame/assets/119696431/9491b8f2-337e-4e46-a7e3-764822cb3ddd)
+
+[Game2](https://github.com/kasrahmi/AAGame/assets/119696431/32cb9eca-914c-44ee-b1fa-ac8c988e7053)
+
+## Technologies
+
+- **Java**
+- **JavaFX**
+
+## Contributing
+
+To contribute to this project, follow these steps:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes.
+4. Commit your changes (`git commit -m 'Add some feature'`).
+5. Push to the branch (`git push origin feature-branch`).
+6. Open a pull request.
+
+## Contact
+
+For any inquiries or feedback, please contact:
+
+- Kasra Ahmadi - [a.kasrahmi@gmail.com](mailto:a.kasrahmi@gmail.com)
+- LinkedIn - [Kasra Ahmadi](https://www.linkedin.com/in/kasra-ahmadi-4652a925b/)
